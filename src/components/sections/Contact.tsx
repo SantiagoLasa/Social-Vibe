@@ -7,7 +7,8 @@ import { brand } from '@/content/brand';
 import { Container } from '../layout/Container';
 import { Label } from '../ui/Label';
 import { Reveal } from '../ui/Reveal';
-import { InstagramIcon } from '../ui/icons';
+import { whatsappUrl } from '@/lib/whatsapp';
+import { InstagramIcon, WhatsAppIcon } from '../ui/icons';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -15,6 +16,7 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 // datos de contacto. Es la última página del brand kit hecha interacción.
 export function Contact({ copy }: { copy: Copy }) {
   const reduce = useReducedMotion();
+  const wa = whatsappUrl(copy.contact.whatsappMessage);
 
   return (
     <section
@@ -49,7 +51,23 @@ export function Contact({ copy }: { copy: Copy }) {
               {copy.contact.body}
             </p>
 
-            <dl className="mt-10 grid gap-6 sm:grid-cols-3">
+            <dl className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+              <div>
+                <dt className="font-mono text-utility uppercase text-bistre/60">
+                  {copy.contact.whatsappLabel}
+                </dt>
+                <dd className="mt-2">
+                  <a
+                    href={wa}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-body text-bistre underline decoration-flame decoration-1 underline-offset-4 transition-colors duration-200 hover:text-flame"
+                  >
+                    <WhatsAppIcon width={17} height={17} className="text-flame" />
+                    {brand.contact.whatsapp}
+                  </a>
+                </dd>
+              </div>
               <div>
                 <dt className="font-mono text-utility uppercase text-bistre/60">
                   {copy.contact.emailLabel}
@@ -87,9 +105,12 @@ export function Contact({ copy }: { copy: Copy }) {
 
         <Reveal delay={0.2} className="mt-10">
           <a
-            href={`mailto:${brand.contact.email}`}
-            className="patch inline-flex bg-flame px-8 py-3.5 text-label uppercase text-paper transition-colors duration-200 hover:bg-bistre"
+            href={wa}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="patch inline-flex items-center gap-3 bg-flame px-8 py-3.5 text-label uppercase text-paper transition-colors duration-200 hover:bg-bistre"
           >
+            <WhatsAppIcon width={19} height={19} />
             {copy.nav.cta}
           </a>
         </Reveal>

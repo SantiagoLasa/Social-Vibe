@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from 'motion/react';
 import type { Copy } from '@/content/copy';
 import type { Locale } from '@/content/brand';
 import { cn } from '@/lib/cn';
+import { whatsappUrl } from '@/lib/whatsapp';
 import { Container } from './Container';
 import { Logo } from './Logo';
 import { CloseIcon, MenuIcon } from '../ui/icons';
@@ -59,6 +60,8 @@ export function Nav({ copy, locale }: { copy: Copy; locale: Locale }) {
 
   const otherLocale: Locale = locale === 'en' ? 'es' : 'en';
   const otherHref = otherLocale === 'en' ? '/' : '/es';
+  // "Let's talk" abre el WhatsApp de Jeniffer con el mensaje precargado.
+  const wa = whatsappUrl(copy.contact.whatsappMessage);
 
   return (
     <>
@@ -102,7 +105,9 @@ export function Nav({ copy, locale }: { copy: Copy; locale: Locale }) {
                 {otherLocale}
               </Link>
               <a
-                href="#contact"
+                href={wa}
+                target="_blank"
+                rel="noopener noreferrer"
                 className="patch bg-bistre px-5 py-2.5 text-label uppercase text-vanilla transition-colors duration-200 hover:bg-flame"
               >
                 {copy.nav.cta}
@@ -162,7 +167,9 @@ export function Nav({ copy, locale }: { copy: Copy; locale: Locale }) {
                 className="flex items-center gap-5 pt-4"
               >
                 <a
-                  href="#contact"
+                  href={wa}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   onClick={() => setOpen(false)}
                   className="patch bg-bistre px-6 py-3 text-label uppercase text-vanilla"
                 >

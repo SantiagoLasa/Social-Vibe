@@ -50,6 +50,9 @@ export type Copy = {
     emailLabel: string;
     instagramLabel: string;
     locationLabel: string;
+    whatsappLabel: string;
+    /** Mensaje precargado al abrir el chat. */
+    whatsappMessage: string;
   };
   footer: { rights: string; builtIn: string };
   a11y: { skipToContent: string; openMenu: string; closeMenu: string; switchLang: string };
@@ -131,10 +134,13 @@ const en: Copy = {
     // [KIT] p.15
     headline: 'Let’s talk social media',
     // [BORRADOR]
-    body: 'Tell us what you’re serving and where you want it to go. We reply within two business days.',
+    body: 'Tell us what you’re serving and where you want it to go. Message us on WhatsApp and we’ll pick it up from there.',
     emailLabel: 'Email',
     instagramLabel: 'Instagram',
     locationLabel: 'Based in',
+    whatsappLabel: 'WhatsApp',
+    whatsappMessage:
+      'Hi Jeniffer! I found Social Vibe online and I’d like to talk about my brand’s social media.',
   },
   footer: {
     rights: 'All rights reserved.',
@@ -160,24 +166,27 @@ const es: Copy = {
     ],
     cta: 'Hablemos',
   },
+  // Español neutro de Miami (tuteo). NO rioplatense: el público de Social
+  // Vibe es cubano, venezolano, colombiano y peruano — "vos publicá" les
+  // suena extranjero. Escrito, no traducido, como pide el kit.
   hero: {
-    // [BORRADOR] — escrito, no traducido
-    headline: 'Publicá menos. Vendé más.',
+    // [BORRADOR]
+    headline: 'Publica menos. Vende más.',
     sub: 'Redes para marcas de comida, bebida y belleza en Miami. Estrategia y textos para negocios donde el margen es real.',
-    scrollHint: 'Bajá',
+    scrollHint: 'Desliza',
   },
   whoWeAre: {
     label: 'Quiénes somos',
     // [BORRADOR]
-    headline: 'Manejamos el feed como vos manejás el salón',
+    headline: 'Manejamos el feed como tú manejas el salón',
     body: [
       'Social Vibe es una agencia de redes para marcas de comida, bebida y belleza. El trabajo es estrategia y texto para negocios donde el margen es real.',
-      'Cubiertos, reservas, gente que entra sin reservar. Escribimos para las cosas que contás de verdad al cierre.',
+      'Comensales, reservas, gente que entra sin reservar. Escribimos para las cosas que de verdad cuentas al cierre.',
     ],
   },
   services: {
     label: 'Nuestros servicios',
-    headline: 'Qué hay en la carta',
+    headline: 'Qué hay en el menú',
     intro: 'Cuatro formas de trabajar. Una sola, o el servicio completo.',
     blurbs: {
       strategy:
@@ -185,31 +194,35 @@ const es: Copy = {
       'content-creation':
         '[BORRADOR] Foto y video corto en tu local. Planificado, dirigido y editado para que se vea como tu mejor noche.',
       photography:
-        '[BORRADOR] Fotos de carta, salón y producto. El banco de imágenes que reusás todo el año, no una sola publicación.',
+        '[BORRADOR] Fotos de menú, salón y producto. El banco de imágenes que reutilizas todo el año, no una sola publicación.',
       'social-media-management':
         '[BORRADOR] Publicación, comunidad y reportes. Contestamos los mensajes y te decimos qué movió la aguja.',
     },
   },
   work: {
     label: 'Nuestro trabajo',
-    headline: 'Lanzamientos que mueven',
-    resultsNote: 'Los números reales entran acá cuando la clienta confirme qué podemos publicar.',
+    // [BORRADOR] — eco de "Sold out by Sunday" del kit
+    headline: 'Menús que se agotan',
+    resultsNote: 'Los números reales entran aquí cuando Jeniffer confirme qué podemos publicar.',
     clientsLabel: 'Cocinas con las que trabajamos',
     viewLabel: 'Ver los trabajos',
   },
   testimonials: {
     label: 'Qué dicen nuestros clientes',
     headline: 'Directo desde la cocina',
-    empty: 'Acá van las citas de clientes — reales, con nombre. Nada inventado.',
+    empty: 'Aquí van las citas de clientes — reales, con nombre. Nada inventado.',
     items: [],
   },
   contact: {
     label: 'Contacto',
     headline: 'Hablemos de redes',
-    body: 'Contanos qué servís y a dónde querés llegar. Respondemos en dos días hábiles.',
+    body: 'Cuéntanos qué sirves y a dónde quieres llegar. Escríbenos por WhatsApp y seguimos por ahí.',
     emailLabel: 'Email',
     instagramLabel: 'Instagram',
     locationLabel: 'Estamos en',
+    whatsappLabel: 'WhatsApp',
+    whatsappMessage:
+      '¡Hola Jeniffer! Vi la página de Social Vibe y me gustaría hablar sobre las redes de mi marca.',
   },
   footer: {
     rights: 'Todos los derechos reservados.',

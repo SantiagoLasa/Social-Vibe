@@ -21,8 +21,8 @@ export const brand = {
   contact: {
     email: 'hello@socialvibe.agency',
     instagram: '@socialvibe',
-    phone: null as string | null, // TODO: CONTENIDO CLIENTE
-    whatsapp: null as string | null, // TODO: CONTENIDO CLIENTE
+    /** WhatsApp de Jeniffer — confirmado 2026-08-27. Formato para mostrar. */
+    whatsapp: '+1 (786) 442-4758',
   },
 
   social: {

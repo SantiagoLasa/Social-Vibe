@@ -70,7 +70,6 @@ Cómo conseguirlas, de mejor a peor:
 ## Datos de marca a confirmar
 
 - [ ] **Dominio definitivo** — `brand.url` asume `https://socialvibe.agency`.
-- [ ] **Teléfono y WhatsApp**.
 - [ ] **URLs exactas de redes** (Instagram, TikTok).
 - [ ] **Archivos de logo originales** — hoy el lockup está reconstruido en HTML/CSS con las fuentes reales. Si tienen SVG/AI del original, mejor.
 
@@ -87,3 +86,5 @@ Cómo conseguirlas, de mejor a peor:
 - [x] 2026-08-27 — Paleta, tipografías, reglas de logo, patrones y voz: brand kit v1.0 (`social-vibe-brand-kit.pptx.pdf`).
 - [x] 2026-08-27 — Nombre: "Social Vibe **Media** Agency" (no "Marketing").
 - [x] 2026-08-27 — Datos de la tarjeta del kit son reales: Jeniffer, Founder & Strategy · hello@socialvibe.agency · @socialvibe.
+- [x] 2026-08-27 — WhatsApp de Jeniffer: +1 (786) 442-4758. Todos los CTA "Let's talk / Hablemos" abren ese chat con mensaje precargado.
+- [x] 2026-08-27 — Variante de español: neutro de Miami (tuteo), no rioplatense. El público es cubano, venezolano, colombiano y peruano.
