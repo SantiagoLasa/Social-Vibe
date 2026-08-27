@@ -11,9 +11,14 @@ export const brand = {
   // TODO: CONTENIDO CLIENTE — confirmar dominio definitivo
   url: 'https://socialvibe.agency',
 
+  // Confirmado por el cliente (2026-08-27): los datos de la tarjeta del
+  // brand kit p.10 son reales.
+  founder: {
+    name: 'Jeniffer',
+    role: 'Founder & Strategy',
+  },
+
   contact: {
-    // Del brand kit p.10 (tarjeta) — TODO: CONTENIDO CLIENTE, confirmar que
-    // estos son los datos reales y no placeholders del kit.
     email: 'hello@socialvibe.agency',
     instagram: '@socialvibe',
     phone: null as string | null, // TODO: CONTENIDO CLIENTE

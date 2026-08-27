@@ -12,10 +12,7 @@ Registro vivo de todo lo que está como placeholder. Actualizar al cerrar cada
 
 ## Datos de marca a confirmar
 
-- [ ] **Nombre exacto** — el brand kit dice "SOCIAL VIBE **MEDIA** AGENCY" en las 16 páginas; en conversación se mencionó "Marketing Agency". Confirmar.
 - [ ] **Dominio definitivo** — `brand.url` asume `https://socialvibe.agency`.
-- [ ] **Email de contacto** — el kit muestra `hello@socialvibe.agency` en la tarjeta, pero esa slide aclara "Replace the name, handle, and email before printing". Confirmar si es real.
-- [ ] **"Jeniffer — Founder & Strategy"** — ¿es la fundadora real o placeholder del kit?
 - [ ] **Teléfono y WhatsApp**.
 - [ ] **URLs exactas de redes** (Instagram, TikTok).
 - [ ] **Archivos de logo originales** — hoy el lockup está reconstruido en HTML/CSS con las fuentes reales. Si tienen SVG/AI del original, mejor.
@@ -31,3 +28,5 @@ Registro vivo de todo lo que está como placeholder. Actualizar al cerrar cada
 ## Confirmado
 
 - [x] 2026-08-27 — Paleta, tipografías, reglas de logo, patrones y voz: brand kit v1.0 (`social-vibe-brand-kit.pptx.pdf`).
+- [x] 2026-08-27 — Nombre: "Social Vibe **Media** Agency" (no "Marketing").
+- [x] 2026-08-27 — Datos de la tarjeta del kit son reales: Jeniffer, Founder & Strategy · hello@socialvibe.agency · @socialvibe.
