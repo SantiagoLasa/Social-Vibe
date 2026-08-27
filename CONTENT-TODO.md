@@ -3,12 +3,37 @@
 Registro vivo de todo lo que está como placeholder. Actualizar al cerrar cada
 ítem, indicando fecha y quién lo confirmó.
 
+## Estructura del sitio (confirmada)
+
+One-pager con anclas. Cinco segmentos, cada uno con su gesto animado:
+
+| Segmento | Gesto |
+|---|---|
+| Who we are | El patch se pega sobre la página (tilt −1.6°) |
+| Our services | El menú se despliega en paneles |
+| Our work | La bandeja se abre y aparecen los resultados ✅ construido |
+| What our clients are saying | La comanda de cocina se desenrolla |
+| Contact us | La carpeta manila se abre, objetos con parallax |
+
 ## Bloqueante para avanzar
 
 - [ ] **Copy en inglés Y español** — el sitio es bilingüe. Siguiendo el propio brand kit ("Spanish posts get their own copy, not a mirror"), el español debe estar *escrito*, no traducido. Definir si lo redacta el cliente o nosotros.
-- [ ] **Lista de servicios** — qué vende exactamente la agencia (el kit menciona estrategia y copy, pero no hay lista de servicios).
-- [ ] **Piezas de portfolio / casos** — con métricas reales si las hay (el brand kit insiste en que "los números aparecen").
+- [ ] **Descripción de cada servicio** — los cuatro títulos ya están confirmados (ver abajo), falta el párrafo de cada uno.
+- [ ] **Piezas de portfolio** — las capturas y videos de cada cliente. Jeniffer va a pasar la carpeta de multimedia.
+- [ ] **Testimonios reales** — para "What our clients are saying". No se inventan: hacen falta las citas textuales y quién las dijo.
 - [ ] **Fotografía** — el kit pide "clean food photo"; hacen falta imágenes reales de food/drink/beauty.
+
+## Hallazgos de los portfolios actuales
+
+Revisados `jensugc.com/social-media` (gastronomía) y `jenssocialss.com/dahbyk-179q`
+(general). Ambos son sitios de Canva con la misma plantilla.
+
+- **Servicios confirmados** (ya en `src/content/services.ts`): Strategy · Content Creation · Professional Photography · Social Media Management.
+- **Clientes de gastronomía** (ya en `src/content/clients.ts`): La Fresa Francesa, Lima Bakery, Big Joe, Pink Cafe, Silverlake Bistro, Avalon Miami, Delicias del Perú.
+- **El portfolio general no nombra clientes** — solo dice "Work Examples". Si queremos mostrar variedad fuera de gastronomía, hacen falta esos nombres y piezas.
+- ⚠️ **Los dos sitios tienen texto de plantilla sin reemplazar**: "An intriguing caption that describes the room goes here. Use a flattering photo, then describe away!". Avisarle a Jeniffer — está publicado hoy.
+- ⚠️ **Marca anterior**: ambos firman "BY JENS SOCIALS". Definir si Social Vibe reemplaza a Jens Socials o convive.
+- [ ] **Secciones que hoy existen y habría que decidir si migran**: "Photo Examples", "Analytics", "Brands we have worked with".
 
 ## Assets para la escena de la bandeja (cloche reveal)
 
