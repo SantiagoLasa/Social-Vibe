@@ -7,8 +7,8 @@ import {
   type MotionValue,
 } from 'motion/react';
 import { results } from '@/content/results';
+import { Picture } from '../media/Picture';
 import { ScrollStage } from './ScrollStage';
-import { ClocheLid, TrayAndArm } from './ClocheArt';
 
 // Escena signature: al bajar, el mesero levanta la tapa y aparecen los
 // resultados. Todo el movimiento está atado al scroll (no a un timer), así
@@ -22,13 +22,17 @@ import { ClocheLid, TrayAndArm } from './ClocheArt';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-/** Posición final de cada tarjeta, en % relativo al centro de la bandeja. */
+// Superficie de la bandeja dentro del encuadre de la foto: de ahí salen las
+// tarjetas. Medido sobre el recorte real (2398×1792).
+const TRAY = { x: 50, y: 64 };
+
+/** Posición final de cada tarjeta, en % del contenedor. */
 const LAYOUT = [
-  { x: -34, y: -46, rotate: -7 },
-  { x: 0, y: -62, rotate: 0 },
-  { x: 34, y: -44, rotate: 7 },
-  { x: -18, y: -18, rotate: -3 },
-  { x: 20, y: -16, rotate: 4 },
+  { x: -28, y: -34, rotate: -8 },
+  { x: 0, y: -44, rotate: -1 },
+  { x: 28, y: -33, rotate: 8 },
+  { x: -14, y: -18, rotate: -4 },
+  { x: 15, y: -16, rotate: 5 },
 ];
 
 function ResultCard({
@@ -46,25 +50,25 @@ function ResultCard({
   const start = 0.4 + index * 0.07;
   const end = Math.min(start + 0.3, 1);
 
-  const y = useTransform(progress, [start, end], ['8%', `${spot.y}%`]);
-  const x = useTransform(progress, [start, end], ['0%', `${spot.x}%`]);
+  // La tarjeta ya nace en su lugar final (left/top); lo que se anima es el
+  // salto desde la bandeja: sube, crece, gira y aparece.
+  const y = useTransform(progress, [start, end], ['46%', '0%']);
   const rotate = useTransform(progress, [start, end], [0, spot.rotate]);
-  const scale = useTransform(progress, [start, end], [0.72, 1]);
+  const scale = useTransform(progress, [start, end], [0.68, 1]);
   const opacity = useTransform(progress, [start, start + 0.08], [0, 1]);
 
   const style = still
-    ? {
-        x: `${spot.x}%`,
-        y: `${spot.y}%`,
-        rotate: spot.rotate,
-        opacity: 1,
-      }
-    : { x, y, rotate, scale, opacity };
+    ? { rotate: spot.rotate, opacity: 1 }
+    : { y, rotate, scale, opacity };
 
   return (
     <motion.figure
-      style={style}
-      className="absolute left-1/2 top-1/2 w-[26%] max-w-[190px] -translate-x-1/2 -translate-y-1/2"
+      style={{
+        ...style,
+        left: `${TRAY.x + spot.x}%`,
+        top: `${TRAY.y + spot.y}%`,
+      }}
+      className="absolute w-[20%] max-w-[168px] -translate-x-1/2 -translate-y-1/2"
     >
       <div className="patch overflow-hidden bg-paper shadow-card">
         {/* Placeholder del screenshot — se reemplaza por la captura real */}
@@ -95,12 +99,21 @@ function Scene({
 
   return (
     <div className="relative mx-auto w-full max-w-[980px] px-6">
-      <div className="relative aspect-[800/620] w-full">
+      {/* Las dos capas comparten lienzo y proporción: apiladas reconstruyen
+          la toma original, así la tapa calza exacta sobre la bandeja. */}
+      <div className="relative aspect-[2398/1792] w-full">
         <motion.div
           style={still ? undefined : { y: trayY }}
           className="absolute inset-0"
         >
-          <TrayAndArm />
+          <Picture
+            src="scene/tray-arm"
+            alt=""
+            priority
+            sizes="(min-width: 1024px) 980px, 100vw"
+            className="h-full"
+            imgClassName="h-full w-full object-contain"
+          />
         </motion.div>
 
         {/* Las tarjetas viven entre la bandeja y la tapa: quedan tapadas
@@ -122,7 +135,14 @@ function Scene({
             style={{ y: lidY, rotate: lidRotate, opacity: lidOpacity }}
             className="absolute inset-0 origin-bottom"
           >
-            <ClocheLid />
+            <Picture
+              src="scene/cloche-lid"
+              alt=""
+              priority
+              sizes="(min-width: 1024px) 980px, 100vw"
+              className="h-full"
+              imgClassName="h-full w-full object-contain"
+            />
           </motion.div>
         )}
       </div>

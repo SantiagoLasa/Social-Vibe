@@ -22,14 +22,23 @@ const STANDARD_WIDTHS = [480, 768, 1200, 1920];
 const INPUT_EXTS = new Set(['.jpg', '.jpeg', '.png', '.webp']);
 const MAX_BYTES = 200 * 1024;
 
-const FORMATS = [
-  { ext: 'avif', make: (img) => img.avif({ quality: 55 }) },
-  { ext: 'webp', make: (img) => img.webp({ quality: 75 }) },
-  { ext: 'jpg', make: (img) => img.jpeg({ quality: 78, progressive: true, mozjpeg: true }) },
-];
+// AVIF y WebP soportan transparencia; JPG no. Para imágenes con canal alfa
+// (los recortes de la escena) el respaldo es PNG en vez de JPG.
+function formatsFor(hasAlpha) {
+  return [
+    { ext: 'avif', make: (img) => img.avif({ quality: 55 }) },
+    { ext: 'webp', make: (img) => img.webp({ quality: 75 }) },
+    hasAlpha
+      ? { ext: 'png', make: (img) => img.png({ compressionLevel: 9, palette: true }) }
+      : { ext: 'jpg', make: (img) => img.jpeg({ quality: 78, progressive: true, mozjpeg: true }) },
+  ];
+}
 
 async function* walk(dir) {
   for (const entry of await readdir(dir, { withFileTypes: true })) {
+    // Carpetas con guion bajo son material de trabajo (originales sin
+    // recortar, descartes): no se publican.
+    if (entry.name.startsWith('_')) continue;
     const full = path.join(dir, entry.name);
     if (entry.isDirectory()) yield* walk(full);
     else yield full;
@@ -69,8 +78,10 @@ async function main() {
 
     await mkdir(path.dirname(path.join(OUT_DIR, key)), { recursive: true });
 
+    const formats = formatsFor(Boolean(meta.hasAlpha));
+
     for (const width of widths) {
-      for (const { ext: outExt, make } of FORMATS) {
+      for (const { ext: outExt, make } of formats) {
         const outPath = path.join(OUT_DIR, `${key}-${width}.${outExt}`);
         if (existsSync(outPath) && (await stat(outPath)).mtimeMs > srcStat.mtimeMs) {
           skipped++;
@@ -79,20 +90,29 @@ async function main() {
         await make(sharp(file).resize({ width })).toFile(outPath);
         generated++;
         const bytes = (await stat(outPath)).size;
-        if (bytes > MAX_BYTES) {
+        // El presupuesto aplica a lo que el navegador realmente sirve. El
+        // respaldo (PNG/JPG) solo llega a navegadores sin AVIF ni WebP.
+        const isServed = outExt === 'avif' || outExt === 'webp';
+        if (isServed && bytes > MAX_BYTES) {
           warnings.push(`${path.relative(ROOT, outPath)} pesa ${Math.round(bytes / 1024)} KB (> 200 KB)`);
         }
       }
     }
 
-    // Placeholder blur de 20px para reservar el espacio sin CLS.
-    const blur = await sharp(file).resize({ width: 20 }).jpeg({ quality: 40 }).toBuffer();
+    // Placeholder blur de 20px para reservar el espacio sin CLS. En recortes
+    // con alfa no corresponde: pintaría un rectángulo detrás de la silueta.
+    const blurDataURL = meta.hasAlpha
+      ? null
+      : `data:image/jpeg;base64,${(
+          await sharp(file).resize({ width: 20 }).jpeg({ quality: 40 }).toBuffer()
+        ).toString('base64')}`;
 
     manifest[key] = {
       width: meta.width,
       height: meta.height,
       widths: widths.sort((a, b) => a - b),
-      blurDataURL: `data:image/jpeg;base64,${blur.toString('base64')}`,
+      hasAlpha: Boolean(meta.hasAlpha),
+      blurDataURL,
     };
   }
 
