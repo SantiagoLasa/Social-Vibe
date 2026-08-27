@@ -7,7 +7,9 @@ import {
   type MotionValue,
 } from 'motion/react';
 import { results } from '@/content/results';
+import type { Copy } from '@/content/copy';
 import { Picture } from '../media/Picture';
+import { Label } from '../ui/Label';
 import { ScrollStage } from './ScrollStage';
 
 // Escena signature: al bajar, el mesero levanta la tapa y aparecen los
@@ -150,7 +152,7 @@ function Scene({
   );
 }
 
-export function ClocheReveal() {
+export function ClocheReveal({ copy }: { copy: Copy }) {
   const reduce = useReducedMotion();
 
   // Con prefers-reduced-motion no hay escena: se muestra el estado final,
@@ -159,9 +161,9 @@ export function ClocheReveal() {
     return (
       <section className="candy-stripe py-24">
         <header className="mx-auto mb-10 max-w-site px-6 text-center">
-          <p className="text-label uppercase text-flame">{results.eyebrow}</p>
+          <Label>{copy.work.label}</Label>
           <h2 className="mt-4 font-display text-display-l text-bistre">
-            {results.headline}
+            {copy.work.headline}
           </h2>
         </header>
         <div className="mx-auto grid max-w-site grid-cols-2 gap-6 px-6 md:grid-cols-3">
@@ -175,6 +177,9 @@ export function ClocheReveal() {
             </figure>
           ))}
         </div>
+        <p className="mx-auto mt-8 max-w-[46ch] px-6 text-center text-utility uppercase text-ink/70">
+          {copy.work.resultsNote}
+        </p>
       </section>
     );
   }
@@ -184,7 +189,7 @@ export function ClocheReveal() {
       <ScrollStage length={2.6}>
         {(progress) => (
           <div className="w-full">
-            <Headline progress={progress} />
+            <Headline progress={progress} copy={copy} />
             <Scene progress={progress} still={false} />
           </div>
         )}
@@ -193,7 +198,7 @@ export function ClocheReveal() {
   );
 }
 
-function Headline({ progress }: { progress: MotionValue<number> }) {
+function Headline({ progress, copy }: { progress: MotionValue<number>; copy: Copy }) {
   // El titular entra primero y se aparta cuando la escena toma el control.
   const opacity = useTransform(progress, [0, 0.08, 0.5, 0.62], [0, 1, 1, 0.25]);
   const y = useTransform(progress, [0, 0.5], ['0%', '-18%']);
@@ -206,9 +211,9 @@ function Headline({ progress }: { progress: MotionValue<number> }) {
       // lectores de pantalla no dependen del scroll.
       transition={{ ease: EASE }}
     >
-      <p className="text-label uppercase text-flame">{results.eyebrow}</p>
+      <Label>{copy.work.label}</Label>
       <h2 className="mx-auto mt-4 max-w-[14ch] font-display text-display-l text-bistre">
-        {results.headline}
+        {copy.work.headline}
       </h2>
     </motion.header>
   );

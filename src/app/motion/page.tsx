@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ClocheReveal } from '@/components/motion/ClocheReveal';
 import { Logo } from '@/components/layout/Logo';
+import { getCopy } from '@/content/copy';
 
 // Demo interna del sistema de animación — para revisión con la clienta.
 // noindex: no es una página del sitio.
@@ -30,7 +31,7 @@ export default function MotionDemo() {
         </div>
       </header>
 
-      <ClocheReveal />
+      <ClocheReveal copy={getCopy('en')} />
 
       <section className="bg-paper px-6 py-24">
         <div className="mx-auto max-w-[62ch] space-y-5">

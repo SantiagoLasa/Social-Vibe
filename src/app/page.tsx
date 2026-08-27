@@ -1,17 +1,15 @@
-import Link from 'next/link';
-import { Logo } from '@/components/layout/Logo';
+import type { Metadata } from 'next';
+import { SiteHome } from '@/components/SiteHome';
 
-// Placeholder — la Home real se construye cuando llegue el copy del cliente.
-export default function Home() {
-  return (
-    <main className="candy-stripe flex min-h-screen flex-col items-center justify-center gap-10 p-6">
-      <Logo />
-      <Link
-        href="/styleguide"
-        className="bg-paper px-4 py-2 text-label uppercase text-flame"
-      >
-        Sistema de diseño
-      </Link>
-    </main>
-  );
+// Inglés en la raíz; el español vive en /es. Sin redirecciones: cada idioma
+// tiene su URL canónica, que es lo que corresponde en export estático.
+export const metadata: Metadata = {
+  alternates: {
+    canonical: '/',
+    languages: { en: '/', es: '/es' },
+  },
+};
+
+export default function Page() {
+  return <SiteHome locale="en" />;
 }
