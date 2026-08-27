@@ -1,0 +1,181 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------------
+   Tokens — Social Vibe Media Agency, brand kit v1.0.
+   Toda decisión visual deriva de acá. Los assets generados en build leen
+   scripts/palette.mjs (debe coincidir con estos valores).
+   --------------------------------------------------------------------------- */
+:root {
+  /* Los cinco, en ese orden — mezcla 40/25/20/10/5 */
+  --bistre: #5D372A;    /* el patch, paneles oscuros, titulares */
+  --vanilla: #FFEEBC;   /* fondo cálido, tipo invertida, franja A */
+  --columbia: #D2E8FF;  /* franja B, alivio frío, stories */
+  --green: #26422A;     /* el sello, headings, quote tiles */
+  --flame: #EA672D;     /* un acento por layout. Tags, CTAs */
+
+  /* Papel — el blanco del brand kit no es #FFF puro */
+  --paper: #FDFBF5;     /* fondo de página */
+
+  /* Derivados con transparencia — siempre via color-mix desde un token base,
+     nunca un rgba(...) literal duplicado. */
+  --nav-scrim: color-mix(in srgb, var(--paper) 88%, transparent);
+  --patch-overlay: color-mix(in srgb, var(--bistre) 45%, transparent);
+  --hairline: color-mix(in srgb, var(--bistre) 22%, transparent);
+  --body-ink: color-mix(in srgb, var(--bistre) 78%, transparent);
+}
+
+/* Mapeo de tokens a utilidades Tailwind (bg-vanilla, text-bistre, etc.) */
+@theme inline {
+  --color-bistre: var(--bistre);
+  --color-vanilla: var(--vanilla);
+  --color-columbia: var(--columbia);
+  --color-green: var(--green);
+  --color-flame: var(--flame);
+  --color-paper: var(--paper);
+  --color-hairline: var(--hairline);
+  --color-ink: var(--body-ink);
+
+  --font-display: var(--font-bodoni), Didot, "Times New Roman", serif;
+  --font-sans: var(--font-jost), system-ui, sans-serif;
+  --font-mono: var(--font-courier), "Courier New", monospace;
+}
+
+@theme {
+  /* Escala tipográfica — brand kit: "heavy over hairline".
+     Display Bodoni 900 44–86pt / −2%; Headline Bodoni 700 28–40pt / −1%. */
+  --text-display-xl: clamp(2.75rem, 8vw, 6rem);
+  --text-display-xl--line-height: 0.94;
+  --text-display-xl--letter-spacing: -0.02em;
+  --text-display-xl--font-weight: 900;
+
+  --text-display-l: clamp(2.25rem, 5.5vw, 4rem);
+  --text-display-l--line-height: 0.98;
+  --text-display-l--letter-spacing: -0.02em;
+  --text-display-l--font-weight: 900;
+
+  --text-display-m: clamp(1.75rem, 3.5vw, 2.5rem);
+  --text-display-m--line-height: 1.08;
+  --text-display-m--letter-spacing: -0.01em;
+  --text-display-m--font-weight: 700;
+
+  /* Body Jost 300 16–19pt */
+  --text-body-l: 1.1875rem;
+  --text-body-l--line-height: 1.6;
+
+  --text-body: 1rem;
+  --text-body--line-height: 1.65;
+
+  --text-caption: 0.8125rem;
+  --text-caption--line-height: 1.5;
+
+  /* Label Jost 500 caps 12–14pt / 20% */
+  --text-label: 0.8125rem;
+  --text-label--line-height: 1.2;
+  --text-label--letter-spacing: 0.2em;
+  --text-label--font-weight: 500;
+
+  /* Lockup sub Jost 300 caps 9–15pt / 42% — el "M E D I A  A G E N C Y" */
+  --text-lockup: 0.625rem;
+  --text-lockup--line-height: 1.2;
+  --text-lockup--letter-spacing: 0.42em;
+  --text-lockup--font-weight: 300;
+
+  /* Utility Courier Prime 11–13pt / 18% — fechas, precios, metadatos */
+  --text-utility: 0.75rem;
+  --text-utility--line-height: 1.5;
+  --text-utility--letter-spacing: 0.18em;
+
+  --container-site: 1280px;
+
+  /* El brand kit prohíbe sombras sobre el patch; esta es solo para tarjetas
+     elevadas sobre patrón, muy contenida. */
+  --shadow-card: 0 18px 40px -24px color-mix(in srgb, var(--bistre) 45%, transparent);
+
+  /* Radio del patch — la etiqueta de packaging */
+  --radius-patch: 18px;
+}
+
+@layer base {
+  body {
+    background-color: var(--paper);
+    color: var(--body-ink);
+    font-family: var(--font-jost), system-ui, sans-serif;
+    font-weight: 300;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: clip;
+  }
+
+  ::selection {
+    background-color: var(--vanilla);
+    color: var(--bistre);
+  }
+
+  /* Foco visible obligatorio. Flame sobre papel pasa para elementos gráficos. */
+  *:focus-visible {
+    outline: 2px solid var(--flame);
+    outline-offset: 2px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Patrones signature — brand kit p.9. Uno por layout: rayas o grilla,
+   nunca las dos a la vez.
+   --------------------------------------------------------------------------- */
+
+/* Candy stripe: Columbia y vanilla sobre blanco. Barras ~1/6 del alto del
+   wordmark para que el patch siempre gane. */
+.candy-stripe {
+  background-image: repeating-linear-gradient(
+    90deg,
+    var(--vanilla) 0px,
+    var(--vanilla) 18px,
+    var(--paper) 18px,
+    var(--paper) 26px,
+    var(--columbia) 26px,
+    var(--columbia) 44px,
+    var(--paper) 44px,
+    var(--paper) 52px
+  );
+}
+
+/* Ledger grid: hairlines de bistre sobre vanilla. Carruseles, precios,
+   cualquier cosa con números. */
+.ledger-grid {
+  background-color: var(--vanilla);
+  background-image:
+    linear-gradient(to right, var(--hairline) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--hairline) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* El patch: etiqueta redondeada inclinada −1.6°, nunca más. Sin gradientes,
+   sin glows, sin drop shadows (brand kit p.6). */
+.patch {
+  border-radius: var(--radius-patch);
+  transform: rotate(-1.6deg);
+}
+
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee 40s linear infinite;
+}
+
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

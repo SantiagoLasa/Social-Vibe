@@ -1,0 +1,27 @@
+# dependencies
+/node_modules
+
+# next.js
+/.next/
+/out/
+
+# generado por scripts/optimize-images.mjs (se regenera en cada build)
+/public/media/
+
+# generado por scripts/generate-og.mjs (se regenera en cada build)
+/public/og/
+
+# misc
+.DS_Store
+*.pem
+npm-debug.log*
+.pnpm-debug.log*
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# env — las claves van en Cloudflare, nunca en el repo
+.env
+.env.*
+!.env.example
