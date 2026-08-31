@@ -86,11 +86,15 @@ export function Contact({ copy }: { copy: Copy }) {
                   {copy.contact.instagramLabel}
                 </dt>
                 <dd className="mt-2">
-                  {/* TODO: CONTENIDO CLIENTE — URL real de Instagram */}
-                  <span className="inline-flex items-center gap-2 text-body text-bistre">
+                  <a
+                    href={brand.social.instagram ?? undefined}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-body text-bistre underline decoration-flame decoration-1 underline-offset-4 transition-colors duration-200 hover:text-flame"
+                  >
                     <InstagramIcon width={17} height={17} className="text-flame" />
                     {brand.contact.instagram}
-                  </span>
+                  </a>
                 </dd>
               </div>
               <div>

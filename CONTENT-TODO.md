@@ -15,20 +15,6 @@ One-pager con anclas. Cinco segmentos, cada uno con su gesto animado:
 | What our clients are saying | La comanda de cocina se desenrolla |
 | Contact us | La carpeta manila se abre, objetos con parallax |
 
-## ⚠️ Conflicto de datos de contacto — resolver antes de publicar
-
-El PDF "CONTENT CREATION PACKAGE" (el que Jeniffer manda a clientes) trae
-datos DISTINTOS a los de la tarjeta del brand kit que habíamos confirmado:
-
-| Dato | Brand kit (en uso hoy) | PDF de paquetes |
-|---|---|---|
-| Instagram | `@socialvibe` | `@socialvibe.ma` |
-| Email | `hello@socialvibe.agency` | `jeniffersocially@gmail.com` |
-
-El PDF es su documento comercial en uso, así que probablemente sean los
-buenos — pero son los datos por donde entran los clientes, así que no se
-cambian sin confirmación expresa. **Preguntar a Jeniffer cuáles valen.**
-
 ## Bloqueante para avanzar
 - [ ] **Testimonios reales** — para "What our clients are saying". No se inventan: hacen falta las citas textuales y quién las dijo. Hoy la sección muestra un estado vacío explícito.
 - [ ] ⚠️ **Volver a bajar `PHOTOS` y `Results` del Drive** — se perdieron localmente por un error nuestro al reorganizar carpetas (Windows no distingue mayúsculas: `photos` y `PHOTOS` eran la misma, y el borrado se llevó lo movido). El Drive está intacto. Los videos NO hace falta rebajarlos.
@@ -114,7 +100,7 @@ Cómo conseguirlas, de mejor a peor:
 ## Datos de marca a confirmar
 
 - [ ] **Dominio definitivo** — `brand.url` asume `https://socialvibe.agency`.
-- [ ] **URLs exactas de redes** (Instagram, TikTok).
+- [ ] **URL de TikTok** (Instagram ya resuelto: instagram.com/socialvibe.ma).
 - [ ] **Archivos de logo originales** — hoy el lockup está reconstruido en HTML/CSS con las fuentes reales. Si tienen SVG/AI del original, mejor.
 
 ## Contenido de página
@@ -134,3 +120,5 @@ Cómo conseguirlas, de mejor a peor:
 - [x] 2026-08-27 — Variante de español: neutro de Miami (tuteo), no rioplatense. El público es cubano, venezolano, colombiano y peruano.
 
 - [x] 2026-08-31 — Servicios: los ocho del PDF "CONTENT CREATION PACKAGE" (p.02), con sus descripciones. Decisión del cliente: **el sitio no muestra precios** — los tres paquetes (Starter / Signature / Full Experience) quedan para la conversación por WhatsApp.
+- [x] 2026-08-31 — Contactos definitivos, los del PDF de paquetes: jeniffersocially@gmail.com y @socialvibe.ma. Reemplazan a los de la tarjeta del brand kit.
+- [x] 2026-08-31 — Noveno servicio agregado por el cliente: Website Design (no está en el PDF; su descripción es borrador nuestro).

@@ -22,4 +22,6 @@ export const services: Service[] = [
   { id: 'ads', title: 'Ads Management', blurb: null },
   { id: 'events', title: 'Event Coverage', blurb: null },
   { id: 'influencers', title: 'Influencer & Partnerships', blurb: null },
+  // No está en el PDF: lo suma el cliente el 31/08.
+  { id: 'web', title: 'Website Design', blurb: null },
 ];

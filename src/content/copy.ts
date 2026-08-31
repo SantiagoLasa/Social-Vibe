@@ -115,6 +115,8 @@ const en: Copy = {
       ads: 'Meta campaign setup, targeting and optimization.',
       events: 'Live coverage of launches, tastings and openings.',
       influencers: 'Sourcing, briefing and managing collaborations.',
+      // [BORRADOR] — no está en el PDF, escrito en su misma voz.
+      web: 'Sites and landing pages built to turn visits into bookings.',
     },
     // [JEN] PDF p.02 y p.04, combinados. Sin precios a propósito.
     closing:
@@ -203,6 +205,8 @@ const es: Copy = {
       ads: 'Campañas en Meta: armado, segmentación y optimización.',
       events: 'Cobertura en vivo de lanzamientos, degustaciones y aperturas.',
       influencers: 'Búsqueda, briefing y gestión de colaboraciones.',
+      // [BORRADOR]
+      web: 'Sitios y landing pages hechos para convertir visitas en reservas.',
     },
     closing:
       'Combínalos, o elige un paquete. Cuéntanos tus metas y armamos uno a tu medida.',

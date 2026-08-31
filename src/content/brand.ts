@@ -11,23 +11,24 @@ export const brand = {
   // TODO: CONTENIDO CLIENTE — confirmar dominio definitivo
   url: 'https://socialvibe.agency',
 
-  // Confirmado por el cliente (2026-08-27): los datos de la tarjeta del
-  // brand kit p.10 son reales.
+  // Confirmado por el cliente (2026-08-31). Ojo: la tarjeta del brand kit
+  // traía otros datos (hello@socialvibe.agency, @socialvibe); mandan los del
+  // PDF de paquetes, que es el documento comercial en uso.
   founder: {
     name: 'Jeniffer',
     role: 'Founder & Strategy',
   },
 
   contact: {
-    email: 'hello@socialvibe.agency',
-    instagram: '@socialvibe',
+    email: 'jeniffersocially@gmail.com',
+    instagram: '@socialvibe.ma',
     /** WhatsApp de Jeniffer — confirmado 2026-08-27. Formato para mostrar. */
     whatsapp: '+1 (786) 442-4758',
   },
 
   social: {
     // TODO: CONTENIDO CLIENTE — URLs exactas
-    instagram: null as string | null,
+    instagram: 'https://instagram.com/socialvibe.ma',
     tiktok: null as string | null,
   },
 };
