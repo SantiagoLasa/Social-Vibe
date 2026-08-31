@@ -111,7 +111,7 @@ export function Contact({ copy }: { copy: Copy }) {
             className="patch inline-flex items-center gap-3 bg-flame px-8 py-3.5 text-label uppercase text-paper transition-colors duration-200 hover:bg-bistre"
           >
             <WhatsAppIcon width={19} height={19} />
-            {copy.nav.cta}
+            {copy.contact.ctaLabel}
           </a>
         </Reveal>
       </Container>

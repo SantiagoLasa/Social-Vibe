@@ -11,7 +11,7 @@ export function WhoWeAre({ copy }: { copy: Copy }) {
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-20">
           <Reveal>
             <Label>{copy.whoWeAre.label}</Label>
-            <h2 className="mt-6 max-w-[14ch] font-display text-display-l text-bistre">
+            <h2 className="mt-6 max-w-[20ch] font-display text-display-l text-bistre">
               {copy.whoWeAre.headline}
             </h2>
           </Reveal>

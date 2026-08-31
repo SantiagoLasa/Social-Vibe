@@ -162,9 +162,10 @@ export function ClocheReveal({ copy }: { copy: Copy }) {
       <section className="candy-stripe py-24">
         <header className="mx-auto mb-10 max-w-site px-6 text-center">
           <Label>{copy.work.label}</Label>
-          <h2 className="mt-4 font-display text-display-l text-bistre">
+          <h2 className="mx-auto mt-4 max-w-[18ch] font-display text-display-l text-bistre">
             {copy.work.headline}
           </h2>
+          <p className="mt-4 text-body-l text-ink">{copy.work.leadIn}</p>
         </header>
         <div className="mx-auto grid max-w-site grid-cols-2 gap-6 px-6 md:grid-cols-3">
           {results.items.map((item) => (
@@ -212,9 +213,10 @@ function Headline({ progress, copy }: { progress: MotionValue<number>; copy: Cop
       transition={{ ease: EASE }}
     >
       <Label>{copy.work.label}</Label>
-      <h2 className="mx-auto mt-4 max-w-[14ch] font-display text-display-l text-bistre">
+      <h2 className="mx-auto mt-4 max-w-[18ch] font-display text-display-l text-bistre">
         {copy.work.headline}
       </h2>
+      <p className="mx-auto mt-4 text-body-l text-ink">{copy.work.leadIn}</p>
     </motion.header>
   );
 }

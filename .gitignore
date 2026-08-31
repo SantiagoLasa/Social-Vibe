@@ -25,3 +25,6 @@ next-env.d.ts
 .env
 .env.*
 !.env.example
+
+# Fuentes pesadas de video: no se versionan (133 MB de .mov)
+/assets-raw/_source/videos/

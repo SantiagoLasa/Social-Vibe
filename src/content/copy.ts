@@ -3,16 +3,18 @@ import { services as serviceList } from './services';
 
 // Todo el texto visible del sitio, por idioma. Cero strings en JSX.
 //
-// ESTADO DEL COPY — importante al revisar:
-//   · Las líneas marcadas [KIT] salen textuales del brand kit de Jeniffer:
-//     son su voz, aprobadas por ella.
-//   · Las marcadas [BORRADOR] las escribimos nosotros siguiendo las reglas
-//     de voz del kit (frases cortas, sustantivos concretos, los números
-//     aparecen). Jeniffer confirma o reemplaza.
-//   · El español NO es traducción del inglés. El propio kit lo pide:
-//     "Spanish posts get their own copy, not a mirror". Los borradores en
-//     español están escritos, no traducidos — igual necesitan su revisión.
-//   · Los testimonios están VACÍOS a propósito: no se inventan.
+// ESTADO DEL COPY:
+//   · [JEN] — texto que mandó Jeniffer el 31/08. Es su voz; se respeta tal
+//     cual salvo por los emojis en titulares (ver nota abajo).
+//   · [BORRADOR] — escrito por nosotros siguiendo su tono. Ella confirma.
+//   · El español NO es traducción: está escrito aparte, en neutro de Miami
+//     (tuteo), que es lo que pide el propio brand kit.
+//   · Testimonios vacíos a propósito: no se inventan.
+//
+// NOTA SOBRE EMOJIS: Jeniffer usa ✨ 👀 🩷 en su texto. Se conservan en
+// cuerpo y bajadas, pero NO en los titulares Bodoni: a 60px un emoji pelea
+// con la tipografía display y rompe el "credible before cute" del kit.
+// Si los quiere también ahí, es agregar el carácter y listo.
 
 export type Testimonial = {
   quote: string;
@@ -33,9 +35,10 @@ export type Copy = {
   work: {
     label: string;
     headline: string;
+    leadIn: string;
+    viewLabel: string;
     resultsNote: string;
     clientsLabel: string;
-    viewLabel: string;
   };
   testimonials: {
     label: string;
@@ -47,11 +50,11 @@ export type Copy = {
     label: string;
     headline: string;
     body: string;
+    ctaLabel: string;
     emailLabel: string;
     instagramLabel: string;
     locationLabel: string;
     whatsappLabel: string;
-    /** Mensaje precargado al abrir el chat. */
     whatsappMessage: string;
   };
   footer: { rights: string; builtIn: string };
@@ -79,21 +82,19 @@ const en: Copy = {
     cta: 'Let’s talk',
   },
   hero: {
-    // [KIT] p.11
-    headline: 'Post less. Sell more.',
-    // [KIT] p.4, adaptado
-    sub: 'Social media for food, drink and beauty brands in Miami. Strategy and copy for businesses whose margins are real.',
+    // [JEN]
+    headline: 'Strategy. Content. Social media. With a sprinkle of creative chaos.',
+    sub: 'We dig into your brand, your audience, your goals, and the little things that make your business different.',
     scrollHint: 'Scroll',
   },
   whoWeAre: {
-    label: 'Who we are',
-    // [BORRADOR]
-    headline: 'We run the feed like you run the floor',
+    // [JEN]
+    label: 'Who are we?',
+    headline: 'We’re the creative team behind the content that gets your brand noticed.',
     body: [
-      // [KIT] p.4
-      'Social Vibe is a social media agency for food, drink and beauty brands. The work is strategy and copy for businesses whose margins are real.',
-      // [BORRADOR] — voz del kit: sustantivos concretos, los números aparecen
-      'Covers, reservations, walk-ins, bookings. We write for the things you actually count at the end of the night.',
+      'A Miami-based social media and content creation agency helping businesses show up online with strategy + creativity + personality — content that feels like your brand while helping you increase visibility, build credibility, create community, and turn attention into business.',
+      'Our goal is to make creating content feel less overwhelming, and make showing up online feel a whole lot easier.',
+      'You run the business. We’ll make sure people know about it. 🩷',
     ],
   },
   services: {
@@ -101,7 +102,7 @@ const en: Copy = {
     // [BORRADOR]
     headline: 'What’s on the menu',
     intro: 'Four ways we work. Pick one, or the whole service.',
-    // TODO: CONTENIDO CLIENTE — los portfolios solo listan los títulos.
+    // TODO: CONTENIDO CLIENTE — Jeniffer todavía no mandó las descripciones.
     blurbs: {
       strategy:
         '[BORRADOR] Where the account is going and why. Audience, positioning, and a calendar your team can actually run.',
@@ -114,27 +115,27 @@ const en: Copy = {
     },
   },
   work: {
+    // [JEN]
     label: 'Our work',
-    // [KIT] p.11
-    headline: 'Menu drops that move',
-    resultsNote: 'Real numbers land here once the client signs off on what we can publish.',
+    headline: 'We could tell you we’re good at content…',
+    leadIn: 'But we’d rather show you. 👀',
+    viewLabel: 'View our work',
+    resultsNote: 'Real numbers, straight from the accounts we run.',
     clientsLabel: 'Kitchens we’ve worked with',
-    viewLabel: 'View the work',
   },
   testimonials: {
     label: 'What our clients are saying',
     // [BORRADOR]
     headline: 'Straight from the pass',
-    empty:
-      'Client quotes go here — real ones, with names. Nothing invented.',
+    empty: 'Client quotes go here — real ones, with names. Nothing invented.',
     items: [],
   },
   contact: {
-    label: 'Contact us',
-    // [KIT] p.15
-    headline: 'Let’s talk social media',
-    // [BORRADOR]
-    body: 'Tell us what you’re serving and where you want it to go. Message us on WhatsApp and we’ll pick it up from there.',
+    // [JEN]
+    label: 'Ready to find your vibe?',
+    headline: 'Your next customer is already scrolling.',
+    body: 'Let’s give them something worth stopping for.',
+    ctaLabel: 'Let’s work together',
     emailLabel: 'Email',
     instagramLabel: 'Instagram',
     locationLabel: 'Based in',
@@ -154,6 +155,8 @@ const en: Copy = {
   },
 };
 
+// Español neutro de Miami (tuteo). Escrito en el tono de Jeniffer — cálido
+// y directo — no traducido palabra por palabra.
 const es: Copy = {
   nav: {
     label: 'Navegación principal',
@@ -166,22 +169,18 @@ const es: Copy = {
     ],
     cta: 'Hablemos',
   },
-  // Español neutro de Miami (tuteo). NO rioplatense: el público de Social
-  // Vibe es cubano, venezolano, colombiano y peruano — "vos publicá" les
-  // suena extranjero. Escrito, no traducido, como pide el kit.
   hero: {
-    // [BORRADOR]
-    headline: 'Publica menos. Vende más.',
-    sub: 'Redes para marcas de comida, bebida y belleza en Miami. Estrategia y textos para negocios donde el margen es real.',
+    headline: 'Estrategia. Contenido. Redes. Con una pizca de caos creativo.',
+    sub: 'Nos metemos en tu marca, tu público, tus metas y en los detalles que hacen distinto a tu negocio.',
     scrollHint: 'Desliza',
   },
   whoWeAre: {
-    label: 'Quiénes somos',
-    // [BORRADOR]
-    headline: 'Manejamos el feed como tú manejas el salón',
+    label: '¿Quiénes somos?',
+    headline: 'Somos el equipo creativo detrás del contenido que hace que te vean.',
     body: [
-      'Social Vibe es una agencia de redes para marcas de comida, bebida y belleza. El trabajo es estrategia y texto para negocios donde el margen es real.',
-      'Comensales, reservas, gente que entra sin reservar. Escribimos para las cosas que de verdad cuentas al cierre.',
+      'Agencia de redes y creación de contenido en Miami. Ayudamos a los negocios a mostrarse online con estrategia + creatividad + personalidad: contenido que se siente tuyo, que suma visibilidad, credibilidad y comunidad, y que convierte la atención en clientes.',
+      'Queremos que crear contenido deje de abrumarte, y que estar online se sienta mucho más fácil.',
+      'Tú llevas el negocio. Nosotros nos encargamos de que se sepa. 🩷',
     ],
   },
   services: {
@@ -201,11 +200,11 @@ const es: Copy = {
   },
   work: {
     label: 'Nuestro trabajo',
-    // [BORRADOR] — eco de "Sold out by Sunday" del kit
-    headline: 'Menús que se agotan',
-    resultsNote: 'Los números reales entran aquí cuando Jeniffer confirme qué podemos publicar.',
-    clientsLabel: 'Cocinas con las que trabajamos',
+    headline: 'Podríamos decirte que somos buenos con el contenido…',
+    leadIn: 'Pero preferimos mostrártelo. 👀',
     viewLabel: 'Ver los trabajos',
+    resultsNote: 'Números reales, sacados de las cuentas que manejamos.',
+    clientsLabel: 'Cocinas con las que trabajamos',
   },
   testimonials: {
     label: 'Qué dicen nuestros clientes',
@@ -214,9 +213,10 @@ const es: Copy = {
     items: [],
   },
   contact: {
-    label: 'Contacto',
-    headline: 'Hablemos de redes',
-    body: 'Cuéntanos qué sirves y a dónde quieres llegar. Escríbenos por WhatsApp y seguimos por ahí.',
+    label: '¿Listos para encontrar tu vibe?',
+    headline: 'Tu próximo cliente ya está scrolleando.',
+    body: 'Démosle algo que valga la pena mirar.',
+    ctaLabel: 'Trabajemos juntos',
     emailLabel: 'Email',
     instagramLabel: 'Instagram',
     locationLabel: 'Estamos en',
