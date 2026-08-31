@@ -1,7 +1,7 @@
 // Galería de trabajos: las 16 fotos que entregó Jeniffer.
 //
-// TODO: CONTENIDO CLIENTE — falta saber a qué cliente pertenece cada foto.
-// Con eso se pueden agrupar por marca y sumar el nombre en el pie.
+// Sin atribución por foto: el cliente decidió que no hace falta indicar de
+// qué negocio es cada imagen. La galería se lee como muestrario de trabajo.
 // El `alt` describe lo que se ve; el `sector` sirve para mostrar que el
 // trabajo va más allá de gastronomía.
 

@@ -19,8 +19,8 @@ import { ScrollStage } from './ScrollStage';
 // Coreografía sobre el progreso 0→1 de la sección:
 //   0.00–0.12  espera (la bandeja entra cerrada)
 //   0.12–0.48  la tapa sube, rota apenas y se desvanece
-//   0.40–0.85  las tarjetas emergen escalonadas y se abren en abanico
-//   0.85–1.00  descanso antes de soltar el sticky
+//   0.38–0.82  las tarjetas emergen escalonadas y se abren en abanico
+//   0.82–1.00  descanso para mirarlas antes de soltar el sticky
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -28,13 +28,17 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 // tarjetas. Medido sobre el recorte real (2398×1792).
 const TRAY = { x: 50, y: 64 };
 
-/** Posición final de cada tarjeta, en % del contenedor. */
+/**
+ * Posición final de cada tarjeta, en % del contenedor.
+ * El abanico se mantiene dentro del ancho de la bandeja: si se abre más,
+ * las tarjetas flotan sueltas y pierden la relación con la escena.
+ */
 const LAYOUT = [
-  { x: -28, y: -34, rotate: -8 },
-  { x: 0, y: -44, rotate: -1 },
-  { x: 28, y: -33, rotate: 8 },
-  { x: -14, y: -18, rotate: -4 },
-  { x: 15, y: -16, rotate: 5 },
+  { x: -21, y: -36, rotate: -7 },
+  { x: 2, y: -48, rotate: -1 },
+  { x: 24, y: -33, rotate: 7 },
+  { x: -13, y: -14, rotate: -4 },
+  { x: 17, y: -11, rotate: 5 },
 ];
 
 function ResultCard({
@@ -49,15 +53,17 @@ function ResultCard({
   still: boolean;
 }) {
   const spot = LAYOUT[index % LAYOUT.length];
-  const start = 0.4 + index * 0.07;
-  const end = Math.min(start + 0.3, 1);
+  // Escalonado más corto: la última tarjeta queda puesta al 82% del
+  // recorrido, así sobra scroll para mirarlas antes de soltar el sticky.
+  const start = 0.38 + index * 0.055;
+  const end = Math.min(start + 0.22, 1);
 
   // La tarjeta ya nace en su lugar final (left/top); lo que se anima es el
   // salto desde la bandeja: sube, crece, gira y aparece.
   const y = useTransform(progress, [start, end], ['46%', '0%']);
   const rotate = useTransform(progress, [start, end], [0, spot.rotate]);
   const scale = useTransform(progress, [start, end], [0.68, 1]);
-  const opacity = useTransform(progress, [start, start + 0.08], [0, 1]);
+  const opacity = useTransform(progress, [start, start + 0.05], [0, 1]);
 
   const style = still
     ? { rotate: spot.rotate, opacity: 1 }
@@ -70,15 +76,18 @@ function ResultCard({
         left: `${TRAY.x + spot.x}%`,
         top: `${TRAY.y + spot.y}%`,
       }}
-      className="absolute w-[26%] max-w-[230px] -translate-x-1/2 -translate-y-1/2"
+      className="absolute w-[32%] max-w-[290px] -translate-x-1/2 -translate-y-1/2"
     >
       {/* La captura es la prueba: se muestra tal cual, sin número escrito
-          por nosotros encima. El alto lo define cada screenshot. */}
-      <div className="patch overflow-hidden bg-paper p-1.5 shadow-card">
+          por nosotros encima. El alto lo define cada screenshot.
+          El filete y la sombra marcada no son decoración: varias capturas
+          son claras sobre fondo claro y sin borde se pierden contra las
+          rayas. */}
+      <div className="patch overflow-hidden border border-bistre/15 bg-paper p-2 shadow-[0_18px_40px_-12px_rgba(93,55,42,0.45)]">
         <Picture
           src={item.image}
           alt={item.alt}
-          sizes="230px"
+          sizes="290px"
           imgClassName="w-full"
         />
       </div>
@@ -171,7 +180,7 @@ export function ClocheReveal({ copy }: { copy: Copy }) {
         </header>
         <div className="mx-auto grid max-w-site grid-cols-1 items-start gap-6 px-6 sm:grid-cols-2 lg:grid-cols-3">
           {results.map((item) => (
-            <figure key={item.id} className="patch overflow-hidden bg-paper p-1.5 shadow-card">
+            <figure key={item.id} className="patch overflow-hidden bg-paper border border-bistre/15 p-2 shadow-card">
               <Picture
                 src={item.image}
                 alt={item.alt}
@@ -190,7 +199,7 @@ export function ClocheReveal({ copy }: { copy: Copy }) {
 
   return (
     <div className="candy-stripe">
-      <ScrollStage length={2.6}>
+      <ScrollStage length={3.1}>
         {(progress) => (
           <div className="w-full">
             <Headline progress={progress} copy={copy} />
@@ -204,8 +213,10 @@ export function ClocheReveal({ copy }: { copy: Copy }) {
 
 function Headline({ progress, copy }: { progress: MotionValue<number>; copy: Copy }) {
   // El titular entra primero y se aparta cuando la escena toma el control.
-  const opacity = useTransform(progress, [0, 0.08, 0.5, 0.62], [0, 1, 1, 0.25]);
-  const y = useTransform(progress, [0, 0.5], ['0%', '-18%']);
+  // Se va del todo, no al 25%: si queda tenue detrás, ensucia la lectura de
+  // las capturas justo cuando son el foco.
+  const opacity = useTransform(progress, [0, 0.08, 0.42, 0.56], [0, 1, 1, 0]);
+  const y = useTransform(progress, [0, 0.56], ['0%', '-22%']);
 
   return (
     <motion.header
