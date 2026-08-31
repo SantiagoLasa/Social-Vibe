@@ -18,17 +18,17 @@ import { ScrollStage } from './ScrollStage';
 //
 // Coreografía sobre el progreso 0→1 de la sección.
 //
-// La clave del ritmo: todo pasa TEMPRANO y después no pasa nada más. Más de
-// la mitad del recorrido es la bandeja servida y quieta, así se puede seguir
-// bajando un buen rato con las capturas puestas. Al subir, el mismo scroll
-// las devuelve a la bandeja y vuelve a tapar — la escena es reversible
-// porque está atada al scroll, no a un timer.
+// La clave del ritmo: todo pasa TEMPRANO y después no pasa nada más, sin
+// alargar la sección — más de la mitad del recorrido ya es bandeja servida
+// y quieta. Al subir, el mismo scroll devuelve las capturas a la bandeja y
+// vuelve a taparla: la escena es reversible porque está atada al scroll y
+// no a un temporizador.
 //
 //   0.00–0.06  espera (la bandeja entra cerrada)
 //   0.06–0.26  la tapa sube, rota apenas y se desvanece
 //   0.18–0.28  el titular se aparta
 //   0.20–0.46  las capturas emergen escalonadas y se abren en abanico
-//   0.46–1.00  bandeja servida: nada se mueve (más de 2 pantallas de scroll)
+//   0.46–1.00  bandeja servida: nada se mueve
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -38,15 +38,19 @@ const TRAY = { x: 50, y: 64 };
 
 /**
  * Posición final de cada tarjeta, en % del contenedor.
- * El abanico se mantiene dentro del ancho de la bandeja: si se abre más,
- * las tarjetas flotan sueltas y pierden la relación con la escena.
+ *
+ * Las tarjetas se mantienen PEGADAS a la bandeja, no flotando muy arriba.
+ * Es lo que evita el efecto de "desaparecieron": al terminar la sección,
+ * lo que está más alto sale del viewport primero, así que si el abanico se
+ * abre demasiado se ve la bandeja sola un buen rato. Agrupadas, la escena
+ * entra y sale como una sola cosa.
  */
 const LAYOUT = [
-  { x: -21, y: -36, rotate: -7 },
-  { x: 2, y: -48, rotate: -1 },
-  { x: 24, y: -33, rotate: 7 },
-  { x: -13, y: -14, rotate: -4 },
-  { x: 17, y: -11, rotate: 5 },
+  { x: -22, y: -26, rotate: -7 },
+  { x: 1, y: -33, rotate: -1 },
+  { x: 24, y: -24, rotate: 7 },
+  { x: -13, y: -8, rotate: -4 },
+  { x: 16, y: -5, rotate: 5 },
 ];
 
 function ResultCard({
@@ -220,7 +224,7 @@ export function ClocheReveal({ copy }: { copy: Copy }) {
 
   return (
     <div className="candy-stripe">
-      <ScrollStage length={4.4}>
+      <ScrollStage length={2.4}>
         {(progress) => (
           <div className="w-full">
             <Headline progress={progress} copy={copy} />
