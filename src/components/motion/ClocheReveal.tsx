@@ -126,10 +126,17 @@ function Scene({
   const trayY = useTransform(progress, [0, 0.46], ['3%', '-3%']);
 
   return (
-    <div className="relative mx-auto w-full max-w-[980px] px-6">
+    <div className="relative mx-auto flex w-full justify-center px-6">
       {/* Las dos capas comparten lienzo y proporción: apiladas reconstruyen
-          la toma original, así la tapa calza exacta sobre la bandeja. */}
-      <div className="relative aspect-[2398/1792] w-full">
+          la toma original, así la tapa calza exacta sobre la bandeja.
+          La escena se limita por ALTURA: ocupando poco más de la mitad del
+          viewport, el conjunto bandeja + capturas sigue entero en pantalla
+          mientras la sección siguiente ya asoma abajo.
+          El tope va como ancho máximo derivado de esa altura (×1.338, la
+          proporción de la toma) en vez de fijar `h-[54svh]`: así en
+          pantallas angostas manda el ancho y la caja nunca se deforma a
+          vertical, que descolocaba las tarjetas respecto de la bandeja. */}
+      <div className="relative aspect-[2398/1792] w-full max-w-[min(700px,calc(54svh*1.338))]">
         <motion.div
           style={still ? undefined : { y: trayY }}
           className="absolute inset-0"
@@ -138,7 +145,7 @@ function Scene({
             src="scene/tray-arm"
             alt=""
             priority
-            sizes="(min-width: 1024px) 980px, 100vw"
+            sizes="(min-width: 1024px) 700px, 100vw"
             className="h-full"
             imgClassName="h-full w-full object-contain"
           />
@@ -167,7 +174,7 @@ function Scene({
               src="scene/cloche-lid"
               alt=""
               priority
-              sizes="(min-width: 1024px) 980px, 100vw"
+              sizes="(min-width: 1024px) 700px, 100vw"
               className="h-full"
               imgClassName="h-full w-full object-contain"
             />
