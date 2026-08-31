@@ -31,6 +31,8 @@ export type Copy = {
     headline: string;
     intro: string;
     blurbs: Record<string, string>;
+    /** Cierre que empuja al contacto: los precios se conversan, no se publican. */
+    closing: string;
   };
   work: {
     label: string;
@@ -99,20 +101,24 @@ const en: Copy = {
   },
   services: {
     label: 'Our services',
-    // [BORRADOR]
+    // [BORRADOR] — el titular es nuestro; el resto sale del PDF de paquetes.
     headline: 'What’s on the menu',
-    intro: 'Four ways we work. Pick one, or the whole service.',
-    // TODO: CONTENIDO CLIENTE — Jeniffer todavía no mandó las descripciones.
+    // [JEN] PDF p.02
+    intro:
+      'Everything your brand needs to show up consistently, look premium and actually convert — handled in-house.',
     blurbs: {
-      strategy:
-        '[BORRADOR] Where the account is going and why. Audience, positioning, and a calendar your team can actually run.',
-      'content-creation':
-        '[BORRADOR] Photo and short-form shot on location. Planned, art-directed and edited to look like you on your best night.',
-      photography:
-        '[BORRADOR] Menu, room and product photography. The library you reuse across the year, not just one post.',
-      'social-media-management':
-        '[BORRADOR] Publishing, community and reporting. We answer the DMs and tell you what moved.',
+      'content-creation': 'Reels, photo and video built around your brand story.',
+      'social-media-management': 'Posting, captions, community and inbox handled daily.',
+      strategy: 'Monthly direction, content pillars and growth goals.',
+      photography: 'On-site shoots with pro lighting and styling.',
+      'graphic-design': 'Branded templates, menus, flyers and story graphics.',
+      ads: 'Meta campaign setup, targeting and optimization.',
+      events: 'Live coverage of launches, tastings and openings.',
+      influencers: 'Sourcing, briefing and managing collaborations.',
     },
+    // [JEN] PDF p.02 y p.04, combinados. Sin precios a propósito.
+    closing:
+      'Mix and match, or pick a package. Tell us your goals and we’ll build a bundle around them.',
   },
   work: {
     // [JEN]
@@ -186,17 +192,20 @@ const es: Copy = {
   services: {
     label: 'Nuestros servicios',
     headline: 'Qué hay en el menú',
-    intro: 'Cuatro formas de trabajar. Una sola, o el servicio completo.',
+    intro:
+      'Todo lo que tu marca necesita para estar presente, verse premium y de verdad convertir — hecho puertas adentro.',
     blurbs: {
-      strategy:
-        '[BORRADOR] Hacia dónde va la cuenta y por qué. Audiencia, posicionamiento y un calendario que tu equipo pueda sostener.',
-      'content-creation':
-        '[BORRADOR] Foto y video corto en tu local. Planificado, dirigido y editado para que se vea como tu mejor noche.',
-      photography:
-        '[BORRADOR] Fotos de menú, salón y producto. El banco de imágenes que reutilizas todo el año, no una sola publicación.',
-      'social-media-management':
-        '[BORRADOR] Publicación, comunidad y reportes. Contestamos los mensajes y te decimos qué movió la aguja.',
+      'content-creation': 'Reels, fotos y video construidos sobre la historia de tu marca.',
+      'social-media-management': 'Publicaciones, captions, comunidad y mensajes, todos los días.',
+      strategy: 'Dirección mensual, pilares de contenido y metas de crecimiento.',
+      photography: 'Sesiones en tu local, con iluminación y estilismo profesional.',
+      'graphic-design': 'Plantillas de marca, menús, flyers y gráficas para stories.',
+      ads: 'Campañas en Meta: armado, segmentación y optimización.',
+      events: 'Cobertura en vivo de lanzamientos, degustaciones y aperturas.',
+      influencers: 'Búsqueda, briefing y gestión de colaboraciones.',
     },
+    closing:
+      'Combínalos, o elige un paquete. Cuéntanos tus metas y armamos uno a tu medida.',
   },
   work: {
     label: 'Nuestro trabajo',

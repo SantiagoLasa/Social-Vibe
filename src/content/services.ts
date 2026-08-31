@@ -1,26 +1,25 @@
-// Los cuatro servicios, tomados de los portfolios actuales de Jeniffer
-// (jensugc.com y jenssocialss.com, sección "what we offer for your business").
+// Los ocho servicios, tomados del PDF "CONTENT CREATION PACKAGE" que pasó
+// Jeniffer (página 02). El orden y la numeración son los de ese documento.
 //
-// TODO: CONTENIDO CLIENTE — falta el copy de cada uno. Los portfolios solo
-// listan los títulos, sin descripción. Cada servicio necesita su párrafo en
-// inglés y en español (escrito, no traducido).
+// DECISIÓN: el sitio NO muestra precios. El PDF tiene tres paquetes con
+// valores mensuales; acá van solo las descripciones para despertar interés
+// y que el precio se converse por WhatsApp. Si alguna vez se quieren
+// publicar, están en el PDF, no acá.
 
 export type Service = {
   id: string;
   title: string;
-  /** null = pendiente del cliente. Nunca inventar. */
+  /** El texto vive en copy.ts, por idioma. */
   blurb: string | null;
 };
 
-export const servicesSection = {
-  eyebrow: 'Our services',
-  // TODO: CONTENIDO CLIENTE — titular de sección
-  headline: null as string | null,
-};
-
 export const services: Service[] = [
-  { id: 'strategy', title: 'Strategy', blurb: null },
   { id: 'content-creation', title: 'Content Creation', blurb: null },
-  { id: 'photography', title: 'Professional Photography', blurb: null },
   { id: 'social-media-management', title: 'Social Media Management', blurb: null },
+  { id: 'strategy', title: 'Social Media Strategy', blurb: null },
+  { id: 'photography', title: 'Photography & Videography', blurb: null },
+  { id: 'graphic-design', title: 'Graphic Design', blurb: null },
+  { id: 'ads', title: 'Ads Management', blurb: null },
+  { id: 'events', title: 'Event Coverage', blurb: null },
+  { id: 'influencers', title: 'Influencer & Partnerships', blurb: null },
 ];

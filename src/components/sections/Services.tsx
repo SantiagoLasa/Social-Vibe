@@ -31,7 +31,9 @@ export function Services({ copy, locale }: { copy: Copy; locale: Locale }) {
           <p className="mt-5 max-w-[46ch] text-body-l">{copy.services.intro}</p>
         </Reveal>
 
-        <ul className="mt-14 grid gap-5 sm:grid-cols-2">
+        {/* Ocho servicios: dos columnas en tablet, cuatro en pantallas
+            anchas para que no se haga una lista interminable. */}
+        <ul className="mt-14 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
           {items.map((service, i) => (
             <motion.li
               key={service.id}
@@ -56,6 +58,13 @@ export function Services({ copy, locale }: { copy: Copy; locale: Locale }) {
             </motion.li>
           ))}
         </ul>
+
+        {/* Cierre sin precios: el objetivo es que escriban, no que comparen. */}
+        <Reveal delay={0.12}>
+          <p className="mt-12 max-w-[52ch] text-body-l text-ink">
+            {copy.services.closing}
+          </p>
+        </Reveal>
       </Container>
     </section>
   );

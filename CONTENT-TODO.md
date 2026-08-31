@@ -15,9 +15,21 @@ One-pager con anclas. Cinco segmentos, cada uno con su gesto animado:
 | What our clients are saying | La comanda de cocina se desenrolla |
 | Contact us | La carpeta manila se abre, objetos con parallax |
 
-## Bloqueante para avanzar
+## ⚠️ Conflicto de datos de contacto — resolver antes de publicar
 
-- [ ] **Descripción de cada servicio** — los cuatro títulos están confirmados; falta el párrafo de cada uno. Es lo único de texto que sigue en `[BORRADOR]`.
+El PDF "CONTENT CREATION PACKAGE" (el que Jeniffer manda a clientes) trae
+datos DISTINTOS a los de la tarjeta del brand kit que habíamos confirmado:
+
+| Dato | Brand kit (en uso hoy) | PDF de paquetes |
+|---|---|---|
+| Instagram | `@socialvibe` | `@socialvibe.ma` |
+| Email | `hello@socialvibe.agency` | `jeniffersocially@gmail.com` |
+
+El PDF es su documento comercial en uso, así que probablemente sean los
+buenos — pero son los datos por donde entran los clientes, así que no se
+cambian sin confirmación expresa. **Preguntar a Jeniffer cuáles valen.**
+
+## Bloqueante para avanzar
 - [ ] **Testimonios reales** — para "What our clients are saying". No se inventan: hacen falta las citas textuales y quién las dijo. Hoy la sección muestra un estado vacío explícito.
 - [ ] ⚠️ **Volver a bajar `PHOTOS` y `Results` del Drive** — se perdieron localmente por un error nuestro al reorganizar carpetas (Windows no distingue mayúsculas: `photos` y `PHOTOS` eran la misma, y el borrado se llevó lo movido). El Drive está intacto. Los videos NO hace falta rebajarlos.
 
@@ -63,7 +75,7 @@ Opciones, de mejor a peor:
 Revisados `jensugc.com/social-media` (gastronomía) y `jenssocialss.com/dahbyk-179q`
 (general). Ambos son sitios de Canva con la misma plantilla.
 
-- **Servicios confirmados** (ya en `src/content/services.ts`): Strategy · Content Creation · Professional Photography · Social Media Management.
+- **Servicios**: ese portfolio lista cuatro, pero el PDF de paquetes (más reciente) trae ocho. Se usan los ocho del PDF.
 - **Clientes de gastronomía** (ya en `src/content/clients.ts`): La Fresa Francesa, Lima Bakery, Big Joe, Pink Cafe, Silverlake Bistro, Avalon Miami, Delicias del Perú.
 - **El portfolio general no nombra clientes** — solo dice "Work Examples". Si queremos mostrar variedad fuera de gastronomía, hacen falta esos nombres y piezas.
 - ⚠️ **Los dos sitios tienen texto de plantilla sin reemplazar**: "An intriguing caption that describes the room goes here. Use a flattering photo, then describe away!". Avisarle a Jeniffer — está publicado hoy.
@@ -98,9 +110,6 @@ Cómo conseguirlas, de mejor a peor:
    variantes (con y sin tapa) es inconsistente — mejor generar una sola con
    la tapa y recortarla en dos capas.
 
-- [ ] **Capturas de resultados** (5 piezas) — screenshots reales de Instagram
-      con sus métricas. Van en `src/content/results.ts`, hoy con `00.0K`
-      como placeholder deliberado: no inventamos números.
 
 ## Datos de marca a confirmar
 
@@ -123,3 +132,5 @@ Cómo conseguirlas, de mejor a peor:
 - [x] 2026-08-27 — Datos de la tarjeta del kit son reales: Jeniffer, Founder & Strategy · hello@socialvibe.agency · @socialvibe.
 - [x] 2026-08-27 — WhatsApp de Jeniffer: +1 (786) 442-4758. Todos los CTA "Let's talk / Hablemos" abren ese chat con mensaje precargado.
 - [x] 2026-08-27 — Variante de español: neutro de Miami (tuteo), no rioplatense. El público es cubano, venezolano, colombiano y peruano.
+
+- [x] 2026-08-31 — Servicios: los ocho del PDF "CONTENT CREATION PACKAGE" (p.02), con sus descripciones. Decisión del cliente: **el sitio no muestra precios** — los tres paquetes (Starter / Signature / Full Experience) quedan para la conversación por WhatsApp.
