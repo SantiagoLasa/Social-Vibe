@@ -45,7 +45,7 @@ function ResultCard({
 }: {
   progress: MotionValue<number>;
   index: number;
-  item: (typeof results.items)[number];
+  item: (typeof results)[number];
   still: boolean;
 }) {
   const spot = LAYOUT[index % LAYOUT.length];
@@ -70,15 +70,17 @@ function ResultCard({
         left: `${TRAY.x + spot.x}%`,
         top: `${TRAY.y + spot.y}%`,
       }}
-      className="absolute w-[20%] max-w-[168px] -translate-x-1/2 -translate-y-1/2"
+      className="absolute w-[26%] max-w-[230px] -translate-x-1/2 -translate-y-1/2"
     >
-      <div className="patch overflow-hidden bg-paper shadow-card">
-        {/* Placeholder del screenshot — se reemplaza por la captura real */}
-        <div className="ledger-grid aspect-[4/5] w-full" />
-        <figcaption className="flex items-baseline justify-between gap-2 px-3 py-2">
-          <span className="text-utility uppercase text-bistre">{item.metric}</span>
-          <span className="text-utility uppercase text-flame">{item.unit}</span>
-        </figcaption>
+      {/* La captura es la prueba: se muestra tal cual, sin número escrito
+          por nosotros encima. El alto lo define cada screenshot. */}
+      <div className="patch overflow-hidden bg-paper p-1.5 shadow-card">
+        <Picture
+          src={item.image}
+          alt={item.alt}
+          sizes="230px"
+          imgClassName="w-full"
+        />
       </div>
     </motion.figure>
   );
@@ -121,7 +123,7 @@ function Scene({
         {/* Las tarjetas viven entre la bandeja y la tapa: quedan tapadas
             hasta que la tapa se va. */}
         <div className="absolute inset-0">
-          {results.items.map((item, i) => (
+          {results.map((item, i) => (
             <ResultCard
               key={item.id}
               progress={progress}
@@ -167,14 +169,15 @@ export function ClocheReveal({ copy }: { copy: Copy }) {
           </h2>
           <p className="mt-4 text-body-l text-ink">{copy.work.leadIn}</p>
         </header>
-        <div className="mx-auto grid max-w-site grid-cols-2 gap-6 px-6 md:grid-cols-3">
-          {results.items.map((item) => (
-            <figure key={item.id} className="patch overflow-hidden bg-paper shadow-card">
-              <div className="ledger-grid aspect-[4/5] w-full" />
-              <figcaption className="flex items-baseline justify-between px-3 py-2">
-                <span className="text-utility uppercase text-bistre">{item.metric}</span>
-                <span className="text-utility uppercase text-flame">{item.unit}</span>
-              </figcaption>
+        <div className="mx-auto grid max-w-site grid-cols-1 items-start gap-6 px-6 sm:grid-cols-2 lg:grid-cols-3">
+          {results.map((item) => (
+            <figure key={item.id} className="patch overflow-hidden bg-paper p-1.5 shadow-card">
+              <Picture
+                src={item.image}
+                alt={item.alt}
+                sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+                imgClassName="w-full"
+              />
             </figure>
           ))}
         </div>
