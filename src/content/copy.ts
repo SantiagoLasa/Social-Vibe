@@ -41,6 +41,7 @@ export type Copy = {
     viewLabel: string;
     resultsNote: string;
     clientsLabel: string;
+    reelsLabel: string;
   };
   testimonials: {
     label: string;
@@ -130,6 +131,7 @@ const en: Copy = {
     viewLabel: 'View our work',
     resultsNote: 'Real numbers, straight from the accounts we run.',
     clientsLabel: 'Kitchens we’ve worked with',
+    reelsLabel: 'Reels we made',
   },
   testimonials: {
     label: 'What our clients are saying',
@@ -218,6 +220,7 @@ const es: Copy = {
     viewLabel: 'Ver los trabajos',
     resultsNote: 'Números reales, sacados de las cuentas que manejamos.',
     clientsLabel: 'Cocinas con las que trabajamos',
+    reelsLabel: 'Reels que hicimos',
   },
   testimonials: {
     label: 'Qué dicen nuestros clientes',

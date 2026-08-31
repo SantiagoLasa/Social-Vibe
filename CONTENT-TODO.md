@@ -41,20 +41,16 @@ rebajar los archivos):
 - Views: 112.781 · 63,7% seguidores / 36,3% no seguidores · 12.212 cuentas alcanzadas
 - Dashboard (Abr 15 – May 14): 24K alcance **+89,6%** · 645 cuentas activadas **+72,5%** · 16K seguidores
 
-### ⚠️ Los videos necesitan una decisión
+### Videos — decidido: YouTube
 
-Los 6 archivos son `.mov` (formato de iPhone) y pesan 133 MB. Dos problemas:
+El cliente sube los 6 videos a un canal de YouTube propio y se embeben desde
+ahí. Ya está construido: `VideoFacade` muestra la miniatura y carga el
+reproductor recién al hacer clic, y `ReelStrip` arma el carrusel.
 
-1. **`.mov` no es formato web** — hay que convertir a MP4 (H.264) y/o WebM.
-2. **No conviene servirlos desde Cloudflare** — los términos de Workers/Pages
-   no contemplan servir video pesado desde el CDN de assets.
+- [ ] **Subir los 6 videos** (pueden ser "no listados") y pegar sus IDs en `src/content/videos.ts`.
+- [ ] **Elegir una miniatura por video** — una clave del manifest de imágenes. Sirve un fotograma exportado o una de las 16 fotos.
 
-No tenemos ffmpeg en el entorno, así que la conversión no se puede hacer acá.
-Opciones, de mejor a peor:
-
-- [ ] **Subirlos a YouTube o Vimeo (no listados) y embeber con facade** — es lo que ya soporta el proyecto, no consume ancho de banda propio y da reproductor decente.
-- [ ] Convertirlos a MP4/WebM comprimido y servirlos desde R2 (no desde assets).
-- [ ] Usarlos solo como fuente para extraer fotogramas fijos (posters), sin video en el sitio.
+Mientras la lista esté vacía la sección no se renderiza.
 
 ## Hallazgos de los portfolios actuales
 

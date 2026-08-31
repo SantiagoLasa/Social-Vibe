@@ -6,6 +6,7 @@ import { Label } from '../ui/Label';
 import { Reveal } from '../ui/Reveal';
 import { ClocheReveal } from '../motion/ClocheReveal';
 import { Gallery } from './Gallery';
+import { ReelStrip } from './ReelStrip';
 
 // La sección de trabajo es la bandeja: el trabajo se sirve. Debajo, la
 // marquesina de cocinas con las que trabajaron.
@@ -27,6 +28,7 @@ export function Work({ copy }: { copy: Copy }) {
     <section id={SECTION_IDS.work} className="scroll-mt-24">
       <ClocheReveal copy={copy} />
       <Gallery />
+      <ReelStrip copy={copy} />
 
       <div className="bg-paper py-20 md:py-28">
         <Container>
