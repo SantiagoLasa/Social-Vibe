@@ -184,21 +184,17 @@ export function ClocheReveal({ copy }: { copy: Copy }) {
           </h2>
           <p className="mt-4 text-body-l text-ink">{copy.work.leadIn}</p>
         </header>
-        <div className="mx-auto grid max-w-site grid-cols-1 items-start gap-6 px-6 sm:grid-cols-2 lg:grid-cols-3">
-          {results.map((item) => (
-            <figure key={item.id} className="patch overflow-hidden bg-paper border border-bistre/15 p-2 shadow-card">
-              <Picture
-                src={item.image}
-                alt={item.alt}
-                sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
-                imgClassName="w-full"
-              />
-            </figure>
-          ))}
+        {/* Sin escena ni capturas acá: la bandeja se muestra ya servida y
+            las capturas las lleva ResultsBoard, que viene justo abajo y es
+            igual para todos. */}
+        <div className="mx-auto max-w-[760px] px-6">
+          <Picture
+            src="scene/tray-arm"
+            alt=""
+            sizes="(min-width: 1024px) 760px, 100vw"
+            imgClassName="w-full"
+          />
         </div>
-        <p className="mx-auto mt-8 max-w-[46ch] px-6 text-center text-utility uppercase text-ink/70">
-          {copy.work.resultsNote}
-        </p>
       </section>
     );
   }
