@@ -5,7 +5,6 @@ import { Container } from '../layout/Container';
 import { Label } from '../ui/Label';
 import { Reveal } from '../ui/Reveal';
 import { ClocheReveal } from '../motion/ClocheReveal';
-import { ResultsBoard } from './ResultsBoard';
 import { Gallery } from './Gallery';
 
 // La sección de trabajo es la bandeja: el trabajo se sirve. Debajo, la
@@ -27,7 +26,6 @@ export function Work({ copy }: { copy: Copy }) {
   return (
     <section id={SECTION_IDS.work} className="scroll-mt-24">
       <ClocheReveal copy={copy} />
-      <ResultsBoard copy={copy} />
       <Gallery />
 
       <div className="bg-paper py-20 md:py-28">

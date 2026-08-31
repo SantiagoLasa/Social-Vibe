@@ -16,15 +16,19 @@ import { ScrollStage } from './ScrollStage';
 // resultados. Todo el movimiento está atado al scroll (no a un timer), así
 // el usuario controla la velocidad y puede volver atrás.
 //
-// Coreografía sobre el progreso 0→1 de la sección. Lo único que se va son
-// el titular y la tapa; las capturas entran y SE QUEDAN, a opacidad plena,
-// durante el último tercio del recorrido — son el objetivo de la escena.
+// Coreografía sobre el progreso 0→1 de la sección.
 //
-//   0.00–0.10  espera (la bandeja entra cerrada)
-//   0.10–0.44  la tapa sube, rota apenas y se desvanece
-//   0.34–0.46  el titular se aparta
-//   0.36–0.70  las capturas emergen escalonadas y se abren en abanico
-//   0.70–1.00  todo quieto y legible antes de soltar el sticky
+// La clave del ritmo: todo pasa TEMPRANO y después no pasa nada más. Más de
+// la mitad del recorrido es la bandeja servida y quieta, así se puede seguir
+// bajando un buen rato con las capturas puestas. Al subir, el mismo scroll
+// las devuelve a la bandeja y vuelve a tapar — la escena es reversible
+// porque está atada al scroll, no a un timer.
+//
+//   0.00–0.06  espera (la bandeja entra cerrada)
+//   0.06–0.26  la tapa sube, rota apenas y se desvanece
+//   0.18–0.28  el titular se aparta
+//   0.20–0.46  las capturas emergen escalonadas y se abren en abanico
+//   0.46–1.00  bandeja servida: nada se mueve (más de 2 pantallas de scroll)
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -57,10 +61,10 @@ function ResultCard({
   still: boolean;
 }) {
   const spot = LAYOUT[index % LAYOUT.length];
-  // La última queda puesta al 70% del recorrido: el resto del scroll es
-  // para leerlas. Nunca se desvanecen — una vez arriba, se quedan.
-  const start = 0.36 + index * 0.045;
-  const end = Math.min(start + 0.16, 1);
+  // La última queda puesta al 46% del recorrido. Todo lo que sigue es
+  // contemplación: nunca se desvanecen, una vez arriba se quedan.
+  const start = 0.20 + index * 0.04;
+  const end = Math.min(start + 0.1, 1);
 
   // La tarjeta ya nace en su lugar final (left/top); lo que se anima es el
   // salto desde la bandeja: sube, crece, gira y aparece.
@@ -109,12 +113,13 @@ function Scene({
   still: boolean;
 }) {
   // La tapa: sube, rota apenas y se va. Sin glows ni sombras (brand kit p.6).
-  const lidY = useTransform(progress, [0.10, 0.44], ['0%', '-78%']);
-  const lidRotate = useTransform(progress, [0.10, 0.44], [0, -7]);
-  const lidOpacity = useTransform(progress, [0.30, 0.46], [1, 0]);
+  const lidY = useTransform(progress, [0.06, 0.26], ['0%', '-78%']);
+  const lidRotate = useTransform(progress, [0.06, 0.26], [0, -7]);
+  const lidOpacity = useTransform(progress, [0.18, 0.28], [1, 0]);
 
-  // La bandeja deriva apenas hacia arriba: da profundidad sin robar atención.
-  const trayY = useTransform(progress, [0, 1], ['4%', '-4%']);
+  // La bandeja deriva apenas, y solo mientras dura la acción: en el tramo
+  // de contemplación queda completamente quieta.
+  const trayY = useTransform(progress, [0, 0.46], ['3%', '-3%']);
 
   return (
     <div className="relative mx-auto w-full max-w-[980px] px-6">
@@ -184,16 +189,30 @@ export function ClocheReveal({ copy }: { copy: Copy }) {
           </h2>
           <p className="mt-4 text-body-l text-ink">{copy.work.leadIn}</p>
         </header>
-        {/* Sin escena ni capturas acá: la bandeja se muestra ya servida y
-            las capturas las lleva ResultsBoard, que viene justo abajo y es
-            igual para todos. */}
-        <div className="mx-auto max-w-[760px] px-6">
+        {/* Sin sticky ni scrubbing: la bandeja ya servida y las capturas en
+            grilla, que es la misma información sin secuestrar el scroll. */}
+        <div className="mx-auto max-w-[620px] px-6">
           <Picture
             src="scene/tray-arm"
             alt=""
-            sizes="(min-width: 1024px) 760px, 100vw"
+            sizes="(min-width: 1024px) 620px, 100vw"
             imgClassName="w-full"
           />
+        </div>
+        <div className="mx-auto mt-10 columns-1 gap-5 px-6 sm:columns-2 lg:columns-3 [&>*]:mb-5 max-w-site">
+          {results.map((item) => (
+            <figure
+              key={item.id}
+              className="patch break-inside-avoid overflow-hidden border border-bistre/15 bg-paper p-2 shadow-card"
+            >
+              <Picture
+                src={item.image}
+                alt={item.alt}
+                sizes="(min-width: 1024px) 30vw, (min-width: 640px) 45vw, 90vw"
+                imgClassName="w-full"
+              />
+            </figure>
+          ))}
         </div>
       </section>
     );
@@ -201,7 +220,7 @@ export function ClocheReveal({ copy }: { copy: Copy }) {
 
   return (
     <div className="candy-stripe">
-      <ScrollStage length={3.1}>
+      <ScrollStage length={4.4}>
         {(progress) => (
           <div className="w-full">
             <Headline progress={progress} copy={copy} />
@@ -217,8 +236,8 @@ function Headline({ progress, copy }: { progress: MotionValue<number>; copy: Cop
   // El titular entra primero y se aparta cuando la escena toma el control.
   // Se va del todo, no al 25%: si queda tenue detrás, ensucia la lectura de
   // las capturas justo cuando son el foco.
-  const opacity = useTransform(progress, [0, 0.06, 0.34, 0.46], [0, 1, 1, 0]);
-  const y = useTransform(progress, [0, 0.46], ['0%', '-22%']);
+  const opacity = useTransform(progress, [0, 0.04, 0.18, 0.28], [0, 1, 1, 0]);
+  const y = useTransform(progress, [0, 0.28], ['0%', '-22%']);
 
   return (
     <motion.header
