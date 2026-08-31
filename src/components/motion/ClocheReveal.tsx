@@ -16,11 +16,15 @@ import { ScrollStage } from './ScrollStage';
 // resultados. Todo el movimiento está atado al scroll (no a un timer), así
 // el usuario controla la velocidad y puede volver atrás.
 //
-// Coreografía sobre el progreso 0→1 de la sección:
-//   0.00–0.12  espera (la bandeja entra cerrada)
-//   0.12–0.48  la tapa sube, rota apenas y se desvanece
-//   0.38–0.82  las tarjetas emergen escalonadas y se abren en abanico
-//   0.82–1.00  descanso para mirarlas antes de soltar el sticky
+// Coreografía sobre el progreso 0→1 de la sección. Lo único que se va son
+// el titular y la tapa; las capturas entran y SE QUEDAN, a opacidad plena,
+// durante el último tercio del recorrido — son el objetivo de la escena.
+//
+//   0.00–0.10  espera (la bandeja entra cerrada)
+//   0.10–0.44  la tapa sube, rota apenas y se desvanece
+//   0.34–0.46  el titular se aparta
+//   0.36–0.70  las capturas emergen escalonadas y se abren en abanico
+//   0.70–1.00  todo quieto y legible antes de soltar el sticky
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
@@ -53,17 +57,19 @@ function ResultCard({
   still: boolean;
 }) {
   const spot = LAYOUT[index % LAYOUT.length];
-  // Escalonado más corto: la última tarjeta queda puesta al 82% del
-  // recorrido, así sobra scroll para mirarlas antes de soltar el sticky.
-  const start = 0.38 + index * 0.055;
-  const end = Math.min(start + 0.22, 1);
+  // La última queda puesta al 70% del recorrido: el resto del scroll es
+  // para leerlas. Nunca se desvanecen — una vez arriba, se quedan.
+  const start = 0.36 + index * 0.045;
+  const end = Math.min(start + 0.16, 1);
 
   // La tarjeta ya nace en su lugar final (left/top); lo que se anima es el
   // salto desde la bandeja: sube, crece, gira y aparece.
   const y = useTransform(progress, [start, end], ['46%', '0%']);
   const rotate = useTransform(progress, [start, end], [0, spot.rotate]);
-  const scale = useTransform(progress, [start, end], [0.68, 1]);
-  const opacity = useTransform(progress, [start, start + 0.05], [0, 1]);
+  const scale = useTransform(progress, [start, end], [0.72, 1]);
+  // Entrada casi instantánea: media opacidad prolongada era justo lo que
+  // hacía ilegibles las capturas claras sobre las rayas.
+  const opacity = useTransform(progress, [start, start + 0.025], [0, 1]);
 
   const style = still
     ? { rotate: spot.rotate, opacity: 1 }
@@ -103,9 +109,9 @@ function Scene({
   still: boolean;
 }) {
   // La tapa: sube, rota apenas y se va. Sin glows ni sombras (brand kit p.6).
-  const lidY = useTransform(progress, [0.12, 0.48], ['0%', '-78%']);
-  const lidRotate = useTransform(progress, [0.12, 0.48], [0, -7]);
-  const lidOpacity = useTransform(progress, [0.34, 0.5], [1, 0]);
+  const lidY = useTransform(progress, [0.10, 0.44], ['0%', '-78%']);
+  const lidRotate = useTransform(progress, [0.10, 0.44], [0, -7]);
+  const lidOpacity = useTransform(progress, [0.30, 0.46], [1, 0]);
 
   // La bandeja deriva apenas hacia arriba: da profundidad sin robar atención.
   const trayY = useTransform(progress, [0, 1], ['4%', '-4%']);
@@ -215,8 +221,8 @@ function Headline({ progress, copy }: { progress: MotionValue<number>; copy: Cop
   // El titular entra primero y se aparta cuando la escena toma el control.
   // Se va del todo, no al 25%: si queda tenue detrás, ensucia la lectura de
   // las capturas justo cuando son el foco.
-  const opacity = useTransform(progress, [0, 0.08, 0.42, 0.56], [0, 1, 1, 0]);
-  const y = useTransform(progress, [0, 0.56], ['0%', '-22%']);
+  const opacity = useTransform(progress, [0, 0.06, 0.34, 0.46], [0, 1, 1, 0]);
+  const y = useTransform(progress, [0, 0.46], ['0%', '-22%']);
 
   return (
     <motion.header
