@@ -1,6 +1,7 @@
 'use client';
 
-import { motion, useReducedMotion } from 'motion/react';
+import { useRef } from 'react';
+import { motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import type { Copy } from '@/content/copy';
 import { SECTION_IDS } from '@/content/copy';
 import { brand } from '@/content/brand';
@@ -14,17 +15,39 @@ const EASE = [0.22, 1, 0.36, 1] as const;
 
 // La carpeta se abre: la solapa gira sobre su borde inferior y deja ver los
 // datos de contacto. Es la última página del brand kit hecha interacción.
+//
+// Sobre verde: es el color que el kit reserva para el sello, y cierra el
+// recorrido con la única superficie profunda de la página. La carpeta celeste
+// contrasta mucho mejor acá que sobre las rayas.
+//
+// El parallax mueve la carpeta y el CTA a distinta velocidad contra ese
+// fondo. La solapa NO se mueve por separado de la carpeta: está pegada a
+// ella, y despegarlas rompería el objeto en vez de darle profundidad.
 export function Contact({ copy }: { copy: Copy }) {
   const reduce = useReducedMotion();
   const wa = whatsappUrl(copy.contact.whatsappMessage);
 
+  const ref = useRef<HTMLElement>(null);
+  // 'start end' → 'end start': el progreso corre mientras la sección entera
+  // cruza el viewport, de entrar por abajo a salir por arriba.
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ['start end', 'end start'],
+  });
+  const folderY = useTransform(scrollYProgress, [0, 1], [34, -34]);
+  const ctaY = useTransform(scrollYProgress, [0, 1], [72, -72]);
+
   return (
     <section
+      ref={ref}
       id={SECTION_IDS.contact}
-      className="candy-stripe scroll-mt-24 py-24 md:py-36"
+      className="scroll-mt-24 bg-green py-24 md:py-36"
     >
       <Container className="flex flex-col items-center">
-        <div className="relative w-full max-w-[720px]">
+        <motion.div
+          className="relative w-full max-w-[720px]"
+          style={reduce ? undefined : { y: folderY }}
+        >
           {/* Solapa de la carpeta */}
           <motion.div
             aria-hidden
@@ -105,19 +128,21 @@ export function Contact({ copy }: { copy: Copy }) {
               </div>
             </dl>
           </motion.div>
-        </div>
+        </motion.div>
 
-        <Reveal delay={0.2} className="mt-10">
-          <a
-            href={wa}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="patch inline-flex items-center gap-3 bg-flame px-8 py-3.5 text-label uppercase text-paper transition-colors duration-200 hover:bg-bistre"
-          >
-            <WhatsAppIcon width={19} height={19} />
-            {copy.contact.ctaLabel}
-          </a>
-        </Reveal>
+        <motion.div style={reduce ? undefined : { y: ctaY }}>
+          <Reveal delay={0.2} className="mt-10">
+            <a
+              href={wa}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="patch inline-flex items-center gap-3 bg-flame px-8 py-3.5 text-label uppercase text-paper transition-colors duration-200 hover:bg-bistre"
+            >
+              <WhatsAppIcon width={19} height={19} />
+              {copy.contact.ctaLabel}
+            </a>
+          </Reveal>
+        </motion.div>
       </Container>
     </section>
   );

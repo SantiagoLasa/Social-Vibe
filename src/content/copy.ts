@@ -16,12 +16,6 @@ import { services as serviceList } from './services';
 // con la tipografía display y rompe el "credible before cute" del kit.
 // Si los quiere también ahí, es agregar el carácter y listo.
 
-export type Testimonial = {
-  quote: string;
-  author: string;
-  business: string;
-};
-
 export type Copy = {
   nav: { label: string; items: { id: string; label: string }[]; cta: string };
   hero: { headline: string; sub: string; scrollHint: string };
@@ -43,12 +37,6 @@ export type Copy = {
     clientsLabel: string;
     reelsLabel: string;
   };
-  testimonials: {
-    label: string;
-    headline: string;
-    empty: string;
-    items: Testimonial[];
-  };
   contact: {
     label: string;
     headline: string;
@@ -68,7 +56,6 @@ const SECTION_IDS = {
   who: 'who-we-are',
   services: 'services',
   work: 'work',
-  testimonials: 'testimonials',
   contact: 'contact',
 };
 
@@ -79,7 +66,6 @@ const en: Copy = {
       { id: SECTION_IDS.who, label: 'Who we are' },
       { id: SECTION_IDS.services, label: 'Services' },
       { id: SECTION_IDS.work, label: 'Work' },
-      { id: SECTION_IDS.testimonials, label: 'Clients' },
       { id: SECTION_IDS.contact, label: 'Contact' },
     ],
     cta: 'Let’s talk',
@@ -133,13 +119,6 @@ const en: Copy = {
     clientsLabel: 'Kitchens we’ve worked with',
     reelsLabel: 'Reels we made',
   },
-  testimonials: {
-    label: 'What our clients are saying',
-    // [BORRADOR]
-    headline: 'Straight from the pass',
-    empty: 'Client quotes go here — real ones, with names. Nothing invented.',
-    items: [],
-  },
   contact: {
     // [JEN]
     label: 'Ready to find your vibe?',
@@ -174,7 +153,6 @@ const es: Copy = {
       { id: SECTION_IDS.who, label: 'Quiénes somos' },
       { id: SECTION_IDS.services, label: 'Servicios' },
       { id: SECTION_IDS.work, label: 'Trabajos' },
-      { id: SECTION_IDS.testimonials, label: 'Clientes' },
       { id: SECTION_IDS.contact, label: 'Contacto' },
     ],
     cta: 'Hablemos',
@@ -221,12 +199,6 @@ const es: Copy = {
     resultsNote: 'Números reales, sacados de las cuentas que manejamos.',
     clientsLabel: 'Cocinas con las que trabajamos',
     reelsLabel: 'Reels que hicimos',
-  },
-  testimonials: {
-    label: 'Qué dicen nuestros clientes',
-    headline: 'Directo desde la cocina',
-    empty: 'Aquí van las citas de clientes — reales, con nombre. Nada inventado.',
-    items: [],
   },
   contact: {
     label: '¿Listos para encontrar tu vibe?',

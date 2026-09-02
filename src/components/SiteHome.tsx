@@ -6,10 +6,9 @@ import { Hero } from './sections/Hero';
 import { WhoWeAre } from './sections/WhoWeAre';
 import { Services } from './sections/Services';
 import { Work } from './sections/Work';
-import { Testimonials } from './sections/Testimonials';
 import { Contact } from './sections/Contact';
 
-// One-pager: los cinco segmentos en una sola página, con el nav apuntando a
+// One-pager: los cuatro segmentos en una sola página, con el nav apuntando a
 // anclas. Cada sección trae su propio gesto animado.
 export function SiteHome({ locale }: { locale: Locale }) {
   const copy: Copy = getCopy(locale);
@@ -28,7 +27,6 @@ export function SiteHome({ locale }: { locale: Locale }) {
         <WhoWeAre copy={copy} />
         <Services copy={copy} locale={locale} />
         <Work copy={copy} />
-        <Testimonials copy={copy} />
         <Contact copy={copy} />
       </main>
       <Footer copy={copy} />

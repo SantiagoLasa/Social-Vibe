@@ -5,18 +5,23 @@ Registro vivo de todo lo que está como placeholder. Actualizar al cerrar cada
 
 ## Estructura del sitio (confirmada)
 
-One-pager con anclas. Cinco segmentos, cada uno con su gesto animado:
+One-pager con anclas. Cuatro segmentos, cada uno con su gesto animado, todos
+construidos:
 
 | Segmento | Gesto |
 |---|---|
-| Who we are | El patch se pega sobre la página (tilt −1.6°) |
+| Who we are | El patch se pega sobre la página (entra a −6°, se asienta en −1.6°) |
 | Our services | El menú se despliega en paneles |
-| Our work | La bandeja se abre y aparecen los resultados ✅ construido |
-| What our clients are saying | La comanda de cocina se desenrolla |
-| Contact us | La carpeta manila se abre, objetos con parallax |
+| Our work | La bandeja se abre y aparecen los resultados |
+| Contact us | La carpeta se abre sobre verde, con parallax de dos capas |
 
-## Bloqueante para avanzar
-- [ ] **Testimonios reales** — para "What our clients are saying". No se inventan: hacen falta las citas textuales y quién las dijo. Hoy la sección muestra un estado vacío explícito.
+**Testimonios: descartados** (02/09). Eran el único bloqueante. Se revisaron los
+dos portfolios de Jeniffer buscando citas reales y no hay: lo que parecen
+testimonios son bloques "Work Examples" con el nombre del cliente, y la palabra
+"Testimonial/Review" aparece en jensugc.com como *tipo de contenido que ella
+produce*, no como cita de un cliente. Decisión del cliente: sacar la sección en
+vez de esperar. Si algún día llegan citas reales, el gesto de la comanda está en
+el historial (commit anterior a este).
 
 ## Multimedia recibido (31/08)
 
