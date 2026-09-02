@@ -43,14 +43,18 @@ export function Gallery() {
     offset: ['start end', 'end start'],
   });
 
-  // La columna del medio va a contramano: es lo que hace que se note.
-  const down = useTransform(scrollYProgress, [0, 1], ['0%', '-9%']);
-  const up = useTransform(scrollYProgress, [0, 1], ['0%', '7%']);
+  // La columna del medio va a contramano. El recorrido está CENTRADO en
+  // cero: a mitad del scroll —justo cuando la sección se ve entera— las
+  // columnas están alineadas, y el desvío máximo es de apenas un 3%. Antes
+  // iba de 0% a -9%, así que el desplazamiento se acumulaba hacia el final
+  // y dejaba más de 200px de vacío contra la sección siguiente.
+  const down = useTransform(scrollYProgress, [0, 1], ['3%', '-3%']);
+  const up = useTransform(scrollYProgress, [0, 1], ['-2%', '2%']);
 
   const columns = toColumns(gallery, columnCount);
 
   return (
-    <div ref={ref} className="bg-paper py-20 md:py-28">
+    <div ref={ref} className="bg-paper pb-12 pt-14 md:pb-14 md:pt-16">
       <Container>
         {/* Sin encabezado: la bajada ya la dijo la bandeja, justo arriba. */}
         <div className="grid grid-cols-2 gap-4 md:grid-cols-3 md:gap-6">

@@ -30,7 +30,7 @@ export function Work({ copy }: { copy: Copy }) {
       <Gallery />
       <ReelStrip copy={copy} />
 
-      <div className="bg-paper py-20 md:py-28">
+      <div className="bg-paper pb-20 pt-12 md:pb-24 md:pt-14">
         <Container>
           <Reveal>
             <Label className="text-center">{copy.work.clientsLabel}</Label>
