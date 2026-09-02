@@ -17,7 +17,7 @@ export const brand = {
   // 'https://socialvibe.agency'. Esas dos líneas son todo — de acá salen el
   // metadataBase, el canonical, el hreflang, el JSON-LD, el sitemap y el
   // robots.txt.
-  url: 'https://social-vibe.pages.dev',
+  url: 'https://social-vibe.santi-lasa99.workers.dev',
   indexable: false,
 
   // Confirmado por el cliente (2026-08-31). Ojo: la tarjeta del brand kit
