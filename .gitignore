@@ -5,7 +5,8 @@
 /.next/
 /out/
 
-# generado por scripts/optimize-images.mjs (se regenera en cada build)
+# generado en cada build: las imágenes por scripts/optimize-images.mjs, los
+# reels por scripts/copy-reels.mjs
 /public/media/
 
 # generado por scripts/generate-og.mjs (se regenera en cada build)
@@ -28,9 +29,6 @@ next-env.d.ts
 
 # Fuentes pesadas de video: no se versionan (133 MB de .mov)
 /assets-raw/_source/videos/
-
-# Reels: se sirven desde R2, no desde el repo (12,9 MB)
-/public/media/reels/
 
 # generado por scripts/generate-og.mjs en cada build
 /public/og/

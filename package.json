@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "next dev",
     "images": "node scripts/optimize-images.mjs",
-    "build": "node scripts/optimize-images.mjs && node scripts/generate-og.mjs && next build && node scripts/fix-lang.mjs",
+    "reels": "node scripts/copy-reels.mjs",
+    "build": "node scripts/optimize-images.mjs && node scripts/copy-reels.mjs && node scripts/generate-og.mjs && next build && node scripts/fix-lang.mjs",
     "lint": "next lint",
     "og": "node scripts/generate-og.mjs"
   },

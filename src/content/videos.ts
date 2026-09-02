@@ -1,12 +1,12 @@
 // Reels que se reproducen en bucle y en silencio, como en el feed.
 //
 // DÓNDE VIVEN LOS ARCHIVOS
-// Hoy se sirven desde el propio sitio (public/media/reels) para poder
-// probarlos en local. En producción van a Cloudflare R2, que no cobra
-// transferencia. Migrar es cambiar esta única constante por la URL pública
-// del bucket — nada más en todo el proyecto.
+// Se sirven desde el propio sitio. Los MP4 están versionados en
+// assets-raw/_source/ y scripts/copy-reels.mjs los publica acá en cada build.
 //
-// Los .mp4 no se versionan: pesan 12,9 MB y se suben una vez a R2.
+// Se evaluó Cloudflare R2 y no hace falta: Pages tampoco cobra transferencia,
+// admite 25 MiB por archivo (el reel más pesado son 4,4 MB) y no pide tarjeta.
+// R2 recién tendría sentido si algún video superara ese límite.
 export const REELS_BASE = '/media/reels';
 
 export type Reel = {

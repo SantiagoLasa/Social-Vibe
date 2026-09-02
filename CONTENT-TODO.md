@@ -17,7 +17,6 @@ One-pager con anclas. Cinco segmentos, cada uno con su gesto animado:
 
 ## Bloqueante para avanzar
 - [ ] **Testimonios reales** — para "What our clients are saying". No se inventan: hacen falta las citas textuales y quién las dijo. Hoy la sección muestra un estado vacío explícito.
-- [ ] ⚠️ **Volver a bajar `PHOTOS` y `Results` del Drive** — se perdieron localmente por un error nuestro al reorganizar carpetas (Windows no distingue mayúsculas: `photos` y `PHOTOS` eran la misma, y el borrado se llevó lo movido). El Drive está intacto. Los videos NO hace falta rebajarlos.
 
 ## Multimedia recibido (31/08)
 
@@ -25,12 +24,11 @@ Carpeta "WEBSITE MEDIA" de Jeniffer. Estado:
 
 | Carpeta | Contenido | Estado |
 |---|---|---|
-| PHOTOS | 16 fotos, 4000×6000 (2:3 vertical), ~6 MB c/u | ⚠️ Hay que rebajarla |
-| Results | 8 capturas de métricas de Instagram | ⚠️ Hay que rebajarla |
+| PHOTOS | 16 fotos, 4000×6000 (2:3 vertical), ~6 MB c/u | ✅ En `assets-raw/photos/` |
+| Results | 8 capturas de métricas de Instagram | ✅ En `assets-raw/results/` |
 | VIDEOS | 6 archivos `.mov`, 133 MB total | ✅ En `assets-raw/_source/videos/` |
 
-**Métricas relevadas de las capturas** (para saber qué tenemos aunque haya que
-rebajar los archivos):
+**Métricas relevadas de las capturas:**
 
 - Barra de engagement: 502K views · 57K likes · 189 comentarios · 1.241 compartidos · 2.773 guardados
 - Barra de engagement: 374K views · 48K likes · 248 comentarios · 1.935 compartidos · 4.621 guardados
@@ -48,11 +46,12 @@ Los 6 .mov del iPhone se convirtieron con HandBrake a 720×1280, sin audio,
 Los cinco quedaron listos para reproducción web con scripts/faststart.mjs.
 
 Se reproducen en bucle y en silencio, cargando solo cuando entran en
-pantalla. Hoy salen de public/media/reels (no versionado); en producción
-van a **Cloudflare R2**, que no cobra transferencia.
+pantalla. Se sirven desde el propio sitio: los MP4 están versionados en
+`assets-raw/_source/` y `scripts/copy-reels.mjs` los publica en cada build.
 
-- [ ] **Crear el bucket R2** y subir los 5 archivos.
-- [ ] Cambiar `REELS_BASE` en `src/content/videos.ts` por la URL pública del bucket. Es la única línea a tocar.
+Se evaluó **Cloudflare R2** y se descartó: Cloudflare Pages tampoco cobra
+transferencia, admite 25 MiB por archivo (el reel más pesado son 4,4 MB) y no
+pide tarjeta. R2 recién haría falta si algún video superara ese límite.
 
 ## Hallazgos de los portfolios actuales
 
@@ -66,33 +65,12 @@ Revisados `jensugc.com/social-media` (gastronomía) y `jenssocialss.com/dahbyk-1
 - ⚠️ **Marca anterior**: ambos firman "BY JENS SOCIALS". Definir si Social Vibe reemplaza a Jens Socials o convive.
 - [ ] **Secciones que hoy existen y habría que decidir si migran**: "Photo Examples", "Analytics", "Brands we have worked with".
 
-## Assets para la escena de la bandeja (cloche reveal)
+## Assets para la escena de la bandeja (cloche reveal) — resuelto
 
-La animación ya está construida con arte placeholder vectorial. Para
-reemplazarla por lo real hacen falta **dos recortes en capas separadas** —
-esto es lo crítico: si viene una sola foto con la tapa puesta, la tapa no se
-puede levantar.
-
-- [ ] **Capa 1 — brazo + guante + bandeja vacía.** PNG con fondo transparente.
-      La bandeja vacía y despejada: ahí aparecen las capturas.
-- [ ] **Capa 2 — la tapa (cloche) sola.** PNG con fondo transparente, misma
-      perspectiva, misma escala y misma iluminación que la capa 1.
-- [ ] Ambas exportadas **desde la misma toma / mismo encuadre**, mínimo
-      2000px de ancho, para que al superponerlas la tapa calce exacta sobre
-      la bandeja.
-
-Cómo conseguirlas, de mejor a peor:
-
-1. **Foto propia** (recomendado): cámara en trípode, dos disparos sin mover
-   nada — uno con la tapa apoyada, otro con la tapa levantada o fuera de
-   cuadro. Luego se recorta la tapa. Es una agencia de food en Miami:
-   conseguir una bandeja con tapa es trivial y el resultado es real.
-2. **Banco de imágenes** con recorte posterior (remove.bg, Photoshop).
-3. **Generación por IA** (Midjourney, Firefly, Nano Banana/Gemini): pedir
-   "waiter's arm in black suit and white glove holding a silver cloche tray,
-   studio lighting, plain background, product photography". Generar dos
-   variantes (con y sin tapa) es inconsistente — mejor generar una sola con
-   la tapa y recortarla en dos capas.
+La escena usa fotos reales en dos capas, no arte placeholder: el brazo con
+guante y la bandeja (`assets-raw/scene/tray-arm.png`) y la tapa suelta
+(`assets-raw/scene/cloche-lid.png`), ambas PNG con fondo transparente y del
+mismo encuadre, que es lo que permite levantar la tapa.
 
 
 ## Datos de marca a confirmar
