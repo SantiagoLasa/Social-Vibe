@@ -8,8 +8,17 @@ export const brand = {
   location: 'Miami, FL',
   established: '2024',
 
-  // TODO: CONTENIDO CLIENTE — confirmar dominio definitivo
-  url: 'https://socialvibe.agency',
+  // DOMINIO Y PUBLICACIÓN
+  // socialvibe.agency todavía no está comprado. Hasta que exista, el sitio
+  // vive en su URL de Pages y NO se indexa: un canonical que apunta a un
+  // dominio que no resuelve es peor que no estar publicado.
+  //
+  // Al comprar el dominio: poner `indexable: true` y cambiar `url` por
+  // 'https://socialvibe.agency'. Esas dos líneas son todo — de acá salen el
+  // metadataBase, el canonical, el hreflang, el JSON-LD, el sitemap y el
+  // robots.txt.
+  url: 'https://social-vibe.pages.dev',
+  indexable: false,
 
   // Confirmado por el cliente (2026-08-31). Ojo: la tarjeta del brand kit
   // traía otros datos (hello@socialvibe.agency, @socialvibe); mandan los del

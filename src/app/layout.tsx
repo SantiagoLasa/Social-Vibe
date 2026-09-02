@@ -22,6 +22,10 @@ export const metadata: Metadata = {
     images: [{ url: '/og/default.jpg', width: 1200, height: 630, alt: `${brand.name} ${brand.descriptor}` }],
   },
   twitter: { card: 'summary_large_image' },
+  // Doble candado mientras no haya dominio: el robots.txt lo bloquea y cada
+  // página se emite con noindex. Los buscadores respetan el meta aunque
+  // lleguen por un enlace directo, que el robots.txt solo no evita.
+  ...(brand.indexable ? {} : { robots: { index: false, follow: false } }),
   // Sin verificación de propiedad todavía: se agrega al conectar Search
   // Console, cuando exista el dominio definitivo.
 };
