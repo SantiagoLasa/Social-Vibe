@@ -31,3 +31,6 @@ next-env.d.ts
 
 # Reels: se sirven desde R2, no desde el repo (12,9 MB)
 /public/media/reels/
+
+# generado por scripts/generate-og.mjs en cada build
+/public/og/

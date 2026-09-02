@@ -9,10 +9,10 @@ export function Footer({ copy }: { copy: Copy }) {
       <Container>
         <div className="flex flex-col items-center gap-8 py-16 text-center">
           <Seal className="w-20 text-2xl" />
-          <p className="font-mono text-utility uppercase text-vanilla/60">
+          <p className="font-mono text-utility uppercase text-vanilla/85">
             {copy.footer.builtIn}
           </p>
-          <p className="font-mono text-utility uppercase text-vanilla/45">
+          <p className="font-mono text-utility uppercase text-vanilla/70">
             © {new Date().getFullYear()} {brand.name} {brand.descriptor}.{' '}
             {copy.footer.rights}
           </p>

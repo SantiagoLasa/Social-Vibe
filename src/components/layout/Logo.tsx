@@ -52,6 +52,9 @@ export function Logo({
 }
 
 /**
+ * Sello — monograma sobre círculo celeste. El monograma va en bistre:
+ * el brand kit lo dibuja en flame, pero naranja sobre celeste da 2.58:1 y
+ * no alcanza el mínimo legible.
  * Sello — monograma. Favicons, marcas de agua, cualquier cosa bajo 120px.
  */
 export function Seal({ className }: { className?: string }) {
@@ -64,13 +67,13 @@ export function Seal({ className }: { className?: string }) {
       aria-hidden
     >
       <span
-        className="font-display text-[1.15em] leading-[0.82] text-flame"
+        className="font-display text-[1.15em] leading-[0.82] text-bistre"
         style={{ fontWeight: 900 }}
       >
         S
         <br />V
       </span>
-      <span className="mt-[0.35em] text-[0.28em] uppercase tracking-[0.2em] text-flame">
+      <span className="mt-[0.35em] text-[0.28em] uppercase tracking-[0.2em] text-bistre/80">
         {brand.sealCaption}
       </span>
     </span>

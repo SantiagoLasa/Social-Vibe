@@ -6,7 +6,11 @@ import { SiteHome } from '@/components/SiteHome';
 export const metadata: Metadata = {
   alternates: {
     canonical: '/',
-    languages: { en: '/', es: '/es' },
+    languages: { 'en-US': '/', 'es-US': '/es' },
+  },
+  openGraph: {
+    url: '/',
+    images: [{ url: '/og/default.jpg', width: 1200, height: 630 }],
   },
 };
 

@@ -6,8 +6,9 @@
   "scripts": {
     "dev": "next dev",
     "images": "node scripts/optimize-images.mjs",
-    "build": "node scripts/optimize-images.mjs && next build && node scripts/fix-lang.mjs",
-    "lint": "next lint"
+    "build": "node scripts/optimize-images.mjs && node scripts/generate-og.mjs && next build && node scripts/fix-lang.mjs",
+    "lint": "next lint",
+    "og": "node scripts/generate-og.mjs"
   },
   "dependencies": {
     "motion": "^12.23.0",

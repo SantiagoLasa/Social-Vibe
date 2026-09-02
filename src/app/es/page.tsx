@@ -9,10 +9,8 @@ export const metadata: Metadata = {
   },
   description:
     'Social Vibe es una agencia de redes en Miami para marcas de comida, bebida y belleza. Estrategia y textos para negocios donde el margen es real.',
-  alternates: {
-    canonical: '/es',
-    languages: { en: '/', es: '/es' },
-  },
+  alternates: { canonical: '/es', languages: { 'en-US': '/', 'es-US': '/es' } },
+  openGraph: { url: '/es', locale: 'es_US', images: [{ url: '/og/es.jpg', width: 1200, height: 630 }] },
 };
 
 export default function PageEs() {

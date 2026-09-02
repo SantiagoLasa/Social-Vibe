@@ -73,7 +73,7 @@ export function Nav({ copy, locale }: { copy: Copy; locale: Locale }) {
       >
         <Container>
           <div className="flex h-20 items-center justify-between gap-6">
-            <a href="#top" aria-label="Social Vibe">
+            <a href="#top">
               <Logo className="scale-[0.62] origin-left md:scale-75" />
             </a>
 

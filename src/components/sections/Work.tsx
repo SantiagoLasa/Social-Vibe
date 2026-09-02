@@ -16,7 +16,7 @@ export function Work({ copy }: { copy: Copy }) {
       {clients.map((client) => (
         <span
           key={client.name}
-          className="whitespace-nowrap font-display text-display-m text-bistre/35 transition-colors duration-300 hover:text-bistre"
+          className="whitespace-nowrap font-display text-display-m text-bistre/70 transition-colors duration-300 hover:text-bistre"
         >
           {client.name}
         </span>
