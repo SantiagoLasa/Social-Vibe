@@ -41,16 +41,18 @@ rebajar los archivos):
 - Views: 112.781 · 63,7% seguidores / 36,3% no seguidores · 12.212 cuentas alcanzadas
 - Dashboard (Abr 15 – May 14): 24K alcance **+89,6%** · 645 cuentas activadas **+72,5%** · 16K seguidores
 
-### Videos — decidido: YouTube
+### Videos — resuelto
 
-El cliente sube los 6 videos a un canal de YouTube propio y se embeben desde
-ahí. Ya está construido: `VideoFacade` muestra la miniatura y carga el
-reproductor recién al hacer clic, y `ReelStrip` arma el carrusel.
+Los 6 .mov del iPhone se convirtieron con HandBrake a 720×1280, sin audio,
+~2 Mbps. De 133 MB a 23 MB. Se usan 5 (se descartó el de 41 s por peso).
+Los cinco quedaron listos para reproducción web con scripts/faststart.mjs.
 
-- [ ] **Subir los 6 videos** (pueden ser "no listados") y pegar sus IDs en `src/content/videos.ts`.
-- [ ] **Elegir una miniatura por video** — una clave del manifest de imágenes. Sirve un fotograma exportado o una de las 16 fotos.
+Se reproducen en bucle y en silencio, cargando solo cuando entran en
+pantalla. Hoy salen de public/media/reels (no versionado); en producción
+van a **Cloudflare R2**, que no cobra transferencia.
 
-Mientras la lista esté vacía la sección no se renderiza.
+- [ ] **Crear el bucket R2** y subir los 5 archivos.
+- [ ] Cambiar `REELS_BASE` en `src/content/videos.ts` por la URL pública del bucket. Es la única línea a tocar.
 
 ## Hallazgos de los portfolios actuales
 

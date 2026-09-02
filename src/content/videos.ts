@@ -1,28 +1,55 @@
-// Reels alojados en YouTube. El sitio NO sirve el video: solo la miniatura,
-// y el reproductor se carga recién al hacer clic (ver VideoFacade).
+// Reels que se reproducen en bucle y en silencio, como en el feed.
 //
-// CÓMO SUMAR UN VIDEO
-//   1. Subirlo a YouTube. Puede ser "no listado" — se ve con el enlace pero
-//      no aparece en el canal ni en búsquedas.
-//   2. Copiar el ID de la URL: youtu.be/AQUI_VA_EL_ID
-//      o youtube.com/watch?v=AQUI_VA_EL_ID
-//   3. Agregar una entrada acá con ese id, un título y una miniatura.
+// DÓNDE VIVEN LOS ARCHIVOS
+// Hoy se sirven desde el propio sitio (public/media/reels) para poder
+// probarlos en local. En producción van a Cloudflare R2, que no cobra
+// transferencia. Migrar es cambiar esta única constante por la URL pública
+// del bucket — nada más en todo el proyecto.
 //
-// La miniatura (`poster`) es una clave del manifest de imágenes: cualquier
-// archivo de assets-raw/. Sirve un fotograma exportado del video o una de
-// las fotos existentes. Se elige a mano a propósito: la miniatura decide si
-// alguien le da play.
+// Los .mp4 no se versionan: pesan 12,9 MB y se suben una vez a R2.
+export const REELS_BASE = '/media/reels';
 
 export type Reel = {
   id: string;
-  /** ID de YouTube, no la URL completa. */
-  youtubeId: string;
-  title: string;
-  /** Clave del manifest de imágenes. */
-  poster: string;
+  file: string;
+  /** Qué se ve, para quien no puede reproducir el video. */
+  alt: string;
+  /** Segundos: sirve para reservar el espacio y para ordenar la tira. */
+  seconds: number;
 };
 
-// TODO: CONTENIDO CLIENTE — los 6 videos están en assets-raw/_source/videos/
-// esperando que se suban al canal. Mientras esta lista esté vacía, la
-// sección de reels no se renderiza.
-export const reels: Reel[] = [];
+// Convertidos desde los originales del iPhone: 720×1280, sin audio, ~2 Mbps.
+// TODO: CONTENIDO CLIENTE — las descripciones son nuestras, mirando cada
+// clip. Si Jeniffer sabe de qué local es cada uno, mejor nombrarlos.
+export const reels: Reel[] = [
+  {
+    id: 'reel-01',
+    file: 'reel-01.mp4',
+    alt: 'Clip de contenido para una hamburguesería.',
+    seconds: 8,
+  },
+  {
+    id: 'reel-03',
+    file: 'reel-03.mp4',
+    alt: 'Clip de contenido gastronómico.',
+    seconds: 9,
+  },
+  {
+    id: 'reel-04',
+    file: 'reel-04.mp4',
+    alt: 'Clip de contenido gastronómico.',
+    seconds: 18,
+  },
+  {
+    id: 'reel-05',
+    file: 'reel-05.mp4',
+    alt: 'Clip de contenido gastronómico.',
+    seconds: 6,
+  },
+  {
+    id: 'reel-06',
+    file: 'reel-06.mp4',
+    alt: 'Clip de contenido gastronómico.',
+    seconds: 14,
+  },
+];
