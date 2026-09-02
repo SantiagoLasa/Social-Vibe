@@ -1,0 +1,17 @@
+{
+  // Sitio estático servido por Workers Static Assets.
+  //
+  // No hay código de Worker: no existe "main". Cuando una request no coincide
+  // con ningún archivo de ./out, Cloudflare devuelve el 404 más cercano
+  // —out/404.html, que genera el export de Next— en vez de un 404 pelado.
+  //
+  // El nombre define la URL de preview: social-vibe.<subdominio>.workers.dev.
+  // Al conectar el dominio definitivo esto no cambia; se agrega el dominio en
+  // Settings y se actualiza brand.url.
+  "name": "social-vibe",
+  "compatibility_date": "2026-09-02",
+  "assets": {
+    "directory": "./out",
+    "not_found_handling": "404-page"
+  }
+}
