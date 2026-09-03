@@ -13,16 +13,31 @@ import { InstagramIcon, WhatsAppIcon } from '../ui/icons';
 
 const EASE = [0.22, 1, 0.36, 1] as const;
 
-// La carpeta se abre: la solapa gira sobre su borde inferior y deja ver los
-// datos de contacto. Es la última página del brand kit hecha interacción.
+// La cuenta que llega al final. La bandeja sirvió el trabajo; acá está el
+// ticket, que es como se cierra una mesa.
 //
-// Sobre verde: es el color que el kit reserva para el sello, y cierra el
-// recorrido con la única superficie profunda de la página. La carpeta celeste
-// contrasta mucho mejor acá que sobre las rayas.
+// Por eso hay dos materiales y no uno: el argumento va en Bodoni sobre el
+// verde, y los datos van en Courier sobre papel. Un ticket no tiene
+// tipografía display, y meter las dos cosas en la misma tarjeta era lo que
+// hacía que la sección se leyera neutra.
 //
-// El parallax mueve la carpeta y el CTA a distinta velocidad contra ese
-// fondo. La solapa NO se mueve por separado de la carpeta: está pegada a
-// ella, y despegarlas rompería el objeto en vez de darle profundidad.
+// Sobre verde: el color que el kit reserva para el sello, y la única
+// superficie profunda del recorrido fuera del footer.
+//
+// El parallax mueve el texto y el ticket a distinta velocidad: el ticket va
+// más rápido, así queda "más cerca" del que mira.
+function Row({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="flex items-baseline justify-between gap-3 py-2">
+      <dt className="shrink-0 uppercase tracking-wide text-bistre/75">{label}</dt>
+      <dd className="min-w-0 text-right">{children}</dd>
+    </div>
+  );
+}
+
+const linkClass =
+  'underline decoration-flame decoration-1 underline-offset-4 transition-colors duration-200 hover:text-flame';
+
 export function Contact({ copy }: { copy: Copy }) {
   const reduce = useReducedMotion();
   const wa = whatsappUrl(copy.contact.whatsappMessage);
@@ -34,8 +49,8 @@ export function Contact({ copy }: { copy: Copy }) {
     target: ref,
     offset: ['start end', 'end start'],
   });
-  const folderY = useTransform(scrollYProgress, [0, 1], [34, -34]);
-  const ctaY = useTransform(scrollYProgress, [0, 1], [72, -72]);
+  const textY = useTransform(scrollYProgress, [0, 1], [28, -28]);
+  const ticketY = useTransform(scrollYProgress, [0, 1], [70, -70]);
 
   return (
     <section
@@ -44,104 +59,105 @@ export function Contact({ copy }: { copy: Copy }) {
       className="scroll-mt-24 bg-green py-24 md:py-36"
     >
       <Container className="flex flex-col items-center">
+        {/* El argumento, sobre el verde. En claro: bistre sobre verde no se
+            lee — antes vivía sobre la tarjeta celeste. */}
         <motion.div
-          className="relative w-full max-w-[720px]"
-          style={reduce ? undefined : { y: folderY }}
+          className="max-w-[46ch] text-center"
+          style={reduce ? undefined : { y: textY }}
         >
-          {/* Solapa de la carpeta */}
-          <motion.div
-            aria-hidden
-            className="mx-auto h-10 w-40 origin-bottom rounded-t-[14px] bg-columbia"
-            initial={reduce ? undefined : { rotateX: 0 }}
-            whileInView={reduce ? undefined : { rotateX: -58 }}
-            viewport={{ once: true, amount: 0.6 }}
-            transition={{ duration: 0.7, ease: EASE }}
-            style={{ transformPerspective: 800 }}
-          />
-
-          <motion.div
-            className="patch bg-columbia p-8 shadow-card md:p-12"
-            initial={reduce ? undefined : { opacity: 0, y: 26 }}
-            whileInView={reduce ? undefined : { opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.3 }}
-            transition={{ duration: 0.6, ease: EASE, delay: 0.12 }}
-          >
-            <Label>{copy.contact.label}</Label>
-            <h2 className="mt-5 max-w-[14ch] font-display text-display-l text-bistre">
+          <Reveal>
+            <Label className="text-columbia">{copy.contact.label}</Label>
+            <h2 className="mt-5 font-display text-display-l text-vanilla">
               {copy.contact.headline}
             </h2>
-            <p className="mt-5 max-w-[44ch] text-body-l text-bistre/85">
-              {copy.contact.body}
-            </p>
+            <p className="mt-5 text-body-l text-vanilla/80">{copy.contact.body}</p>
+          </Reveal>
+        </motion.div>
 
-            <dl className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              <div>
-                <dt className="font-mono text-utility uppercase text-bistre/60">
-                  {copy.contact.whatsappLabel}
-                </dt>
-                <dd className="mt-2">
-                  <a
-                    href={wa}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-body text-bistre underline decoration-flame decoration-1 underline-offset-4 transition-colors duration-200 hover:text-flame"
-                  >
-                    <WhatsAppIcon width={17} height={17} className="text-flame" />
+        {/* La cuenta. La ranura recorta el ticket mientras se imprime. */}
+        <motion.div
+          className="mt-14 w-full max-w-[430px]"
+          style={reduce ? undefined : { y: ticketY }}
+        >
+          <div className="overflow-hidden">
+            <motion.div
+              className="receipt bg-paper px-6 py-8 font-mono text-[11.5px] leading-relaxed text-bistre sm:px-8 sm:text-[12.5px]"
+              initial={reduce ? undefined : { y: '-101%' }}
+              whileInView={reduce ? undefined : { y: '0%' }}
+              viewport={{ once: true, amount: 0.3 }}
+              transition={{ duration: 0.9, ease: EASE }}
+            >
+              <p className="text-center text-utility uppercase tracking-[0.2em] text-bistre">
+                {brand.name}
+              </p>
+              <p className="mt-1 text-center text-utility uppercase tracking-[0.2em] text-bistre/75">
+                {brand.descriptor}
+              </p>
+
+              <dl className="mt-7 border-t border-dashed border-bistre/25 pt-1">
+                <Row label={copy.contact.whatsappLabel}>
+                  <a href={wa} target="_blank" rel="noopener noreferrer" className={linkClass}>
+                    <WhatsAppIcon
+                      width={13}
+                      height={13}
+                      className="mr-1.5 inline-block align-[-1px] text-flame"
+                    />
                     {brand.contact.whatsapp}
                   </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="font-mono text-utility uppercase text-bistre/60">
-                  {copy.contact.emailLabel}
-                </dt>
-                <dd className="mt-2">
-                  <a
-                    href={`mailto:${brand.contact.email}`}
-                    className="text-body text-bistre underline decoration-flame decoration-1 underline-offset-4 transition-colors duration-200 hover:text-flame"
-                  >
+                </Row>
+                <Row label={copy.contact.emailLabel}>
+                  {/* break-words: la dirección es larga y en pantallas
+                      angostas tiene que poder cortarse antes que desbordar. */}
+                  <a href={`mailto:${brand.contact.email}`} className={`${linkClass} break-words`}>
                     {brand.contact.email}
                   </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="font-mono text-utility uppercase text-bistre/60">
-                  {copy.contact.instagramLabel}
-                </dt>
-                <dd className="mt-2">
+                </Row>
+                <Row label={copy.contact.instagramLabel}>
                   <a
                     href={brand.social.instagram ?? undefined}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-body text-bistre underline decoration-flame decoration-1 underline-offset-4 transition-colors duration-200 hover:text-flame"
+                    className={linkClass}
                   >
-                    <InstagramIcon width={17} height={17} className="text-flame" />
+                    <InstagramIcon
+                      width={13}
+                      height={13}
+                      className="mr-1.5 inline-block align-[-1px] text-flame"
+                    />
                     {brand.contact.instagram}
                   </a>
-                </dd>
-              </div>
-              <div>
-                <dt className="font-mono text-utility uppercase text-bistre/60">
-                  {copy.contact.locationLabel}
-                </dt>
-                <dd className="mt-2 text-body text-bistre">{brand.location}</dd>
-              </div>
-            </dl>
-          </motion.div>
-        </motion.div>
+                </Row>
+                <Row label={copy.contact.locationLabel}>{brand.location}</Row>
+              </dl>
 
-        <motion.div style={reduce ? undefined : { y: ctaY }}>
-          <Reveal delay={0.2} className="mt-10">
-            <a
-              href={wa}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="patch inline-flex items-center gap-3 bg-flame px-8 py-3.5 text-label uppercase text-paper transition-colors duration-200 hover:bg-bistre"
-            >
-              <WhatsAppIcon width={19} height={19} />
-              {copy.contact.ctaLabel}
-            </a>
-          </Reveal>
+              {/* El renglón del total. Sin cifras ni moneda: el cliente
+                  decidió que el sitio no muestra precios.
+                  En bistre y no en flame: flame sobre papel da 3.13:1 y este
+                  texto es chico — no llega al 4.5:1 que pide AA. */}
+              <div className="flex items-baseline justify-between gap-3 border-t border-dashed border-bistre/25 py-3">
+                <span className="uppercase tracking-wide text-bistre">
+                  {copy.contact.totalLabel}
+                </span>
+                <span className="uppercase tracking-wide text-bistre">
+                  {copy.contact.totalValue}
+                </span>
+              </div>
+
+              <a
+                href={wa}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="mt-2 flex items-center justify-center gap-2.5 bg-flame px-6 py-3.5 text-label uppercase text-paper transition-colors duration-200 hover:bg-bistre"
+              >
+                <WhatsAppIcon width={17} height={17} />
+                {copy.contact.ctaLabel}
+              </a>
+
+              <p className="mt-7 text-center text-utility uppercase tracking-[0.18em] text-bistre/75">
+                {copy.contact.thanks}
+              </p>
+            </motion.div>
+          </div>
         </motion.div>
       </Container>
     </section>

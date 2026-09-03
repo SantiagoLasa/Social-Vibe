@@ -148,6 +148,28 @@
   background-size: 48px 48px;
 }
 
+/* El ticket: papel angosto con los bordes de arriba y abajo troquelados en
+   zigzag, como el que sale de la impresora del pase.
+   El recorte se hace con una máscara de tres capas: dientes arriba, dientes
+   abajo, y un rectángulo lleno en el medio que deja pasar el cuerpo. No usa
+   imágenes ni pseudo-elementos, así que el fondo del papel sigue siendo un
+   background normal y el contenido no se corre. */
+.receipt {
+  --tooth: 11px;
+  -webkit-mask:
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top /
+      calc(2 * var(--tooth)) var(--tooth) repeat-x,
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom /
+      calc(2 * var(--tooth)) var(--tooth) repeat-x,
+    linear-gradient(#000 0 0) center / 100% calc(100% - 2 * var(--tooth)) no-repeat;
+  mask:
+    conic-gradient(from 135deg at top, #0000, #000 1deg 89deg, #0000 90deg) top /
+      calc(2 * var(--tooth)) var(--tooth) repeat-x,
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg) bottom /
+      calc(2 * var(--tooth)) var(--tooth) repeat-x,
+    linear-gradient(#000 0 0) center / 100% calc(100% - 2 * var(--tooth)) no-repeat;
+}
+
 /* El patch: etiqueta redondeada inclinada −1.6°, nunca más. Sin gradientes,
    sin glows, sin drop shadows (brand kit p.6). */
 .patch {

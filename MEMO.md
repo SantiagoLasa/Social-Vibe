@@ -5,7 +5,7 @@
 
 ## Status
 
-**Última actualización:** 2026-09-02 (4)
+**Última actualización:** 2026-09-02 (5)
 
 ### En curso
 - Nada en código.
@@ -54,6 +54,11 @@
 **Decisión:** el titular se cierra pasado el progreso 0.42 y se vuelve a abrir por debajo de 0.18.
 **Por qué:** cerrarlo para siempre (versión anterior) dejaba la escena decapitada: quien subía a releer encontraba media pantalla de rayas vacías. Abrirlo sin histéresis devolvía el bug original —el titular reapareciendo a media opacidad sobre las capturas—. Por debajo de 0.18 no hay ninguna captura a la vista (la primera empieza en 0.30), así que ahí puede volver sin pelear con nada.
 
+### 2026-09-02 — Contacto es un ticket, no una tarjeta
+**Decisión:** la sección de contacto pasa a ser la cuenta que llega al final de la comida: papel angosto con bordes troquelados, todo en Courier, los datos como renglones y el CTA en el lugar del total.
+**Por qué:** la tarjeta celeste era la única parte del sitio que no participaba de la historia gastronómica (rayas, bandeja, comanda) y por eso se leía neutra. El ticket cierra el arco que abre la bandeja. De paso arregla el desborde del mail: cuatro columnas en 720px daban 140px cada una y una dirección de mail no entra ahí.
+**Detalle que no es obvio:** el argumento (Bodoni) queda **fuera** del ticket, sobre el verde; el ticket es solo mono. Un ticket no tiene tipografía display, y mezclarlas era parte del problema.
+
 ### 2026-09-02 — Se publica con noindex hasta que exista el dominio
 **Decisión:** `brand.indexable = false` mientras tanto, con `brand.url` apuntando a la URL real de Workers.
 **Por qué:** un canonical que declara un dominio inexistente es peor que no publicar. El doble candado (robots.txt `Disallow: /` + meta `noindex, nofollow`) hace falta completo: el robots.txt solo no impide que se indexe una URL a la que se llega por un enlace directo.
@@ -87,6 +92,8 @@
 - `scripts/faststart.mjs` mueve el átomo `moov` al principio de un MP4. Los originales del iPhone dan `moov@-1 mdat@32`; los convertidos, `moov@36 mdat@3567`. `copy-reels.mjs` valida esto y avisa.
 
 **Marca**
+- ⚠️ **flame sobre papel da 3.13:1** y flame con texto papel encima, lo mismo. No llega al 4.5:1 de AA para texto chico. Usar flame para acentos gráficos (íconos, subrayados, fondos de botón) pero **no para texto pequeño sobre papel**. Nota: los botones CTA del sitio (`bg-flame text-paper`, 13px) arrastran este problema desde antes — decisión de marca pendiente.
+- Sobre papel, `text-bistre` con opacidad necesita **/75 o más** para pasar AA (/75 = 4.91:1, /70 = 4.29:1 falla).
 - El sitio **no muestra precios** (decisión del cliente). Los paquetes se conversan por WhatsApp.
 - Español neutro de Miami (tuteo), no rioplatense.
 - El patch va inclinado −1.6° exacto, sin sombras ni gradientes (brand kit p.6).

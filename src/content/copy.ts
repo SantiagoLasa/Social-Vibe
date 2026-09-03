@@ -47,6 +47,11 @@ export type Copy = {
     locationLabel: string;
     whatsappLabel: string;
     whatsappMessage: string;
+    /** El renglón del total en el ticket. Sin cifras: el sitio no muestra precios. */
+    totalLabel: string;
+    totalValue: string;
+    /** El pie del ticket, donde iría "gracias por su compra". */
+    thanks: string;
   };
   footer: { rights: string; builtIn: string };
   a11y: { skipToContent: string; openMenu: string; closeMenu: string; switchLang: string };
@@ -131,6 +136,9 @@ const en: Copy = {
     whatsappLabel: 'WhatsApp',
     whatsappMessage:
       'Hi Jeniffer! I found Social Vibe online and I’d like to talk about my brand’s social media.',
+    totalLabel: 'Total',
+    totalValue: 'One conversation',
+    thanks: 'Thanks for stopping by',
   },
   footer: {
     rights: 'All rights reserved.',
@@ -211,6 +219,9 @@ const es: Copy = {
     whatsappLabel: 'WhatsApp',
     whatsappMessage:
       '¡Hola Jeniffer! Vi la página de Social Vibe y me gustaría hablar sobre las redes de mi marca.',
+    totalLabel: 'Total',
+    totalValue: 'Una conversación',
+    thanks: 'Gracias por pasar',
   },
   footer: {
     rights: 'Todos los derechos reservados.',
