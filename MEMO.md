@@ -5,22 +5,22 @@
 
 ## Status
 
-**Última actualización:** 2026-09-02 (2)
+**Última actualización:** 2026-09-02 (3)
 
 ### En curso
 - Nada en código.
 
 ### Hecho hace poco
-- [x] 2026-09-02 — **Sitio en vivo y abierto a buscadores en `https://socialvibemediaagency.com`.**
+- [x] 2026-09-02 — **Sitio en vivo y abierto a buscadores en `https://socialvibemediaagency.com`**, con `www` redirigiendo 301 al apex.
 - [x] 2026-09-02 — Sitio publicado en Workers Static Assets (preview: `social-vibe.santi-lasa99.workers.dev`).
 - [x] 2026-09-02 — Testimonios eliminados; el sitio pasa a cuatro segmentos.
 - [x] 2026-09-02 — *Who we are* gana su gesto de patch; *Contact* pasa a verde con parallax.
 - [x] 2026-09-02 — Los reels se publican en el build; R2 descartado.
 
 ### Próximo
-1. **El `www` no resuelve.** Los Custom Domains de Workers exigen hostname exacto: el Worker atado al apex no responde a `www.`. Hace falta un registro `A` **proxied** de `www` a `192.0.2.0` más una Redirect Rule a la raíz.
-2. Contratar la casilla de mail y cambiar el mail de contacto del sitio (hoy es el Gmail).
-3. Conectar Google Search Console y subir el sitemap.
+1. Contratar la casilla de mail y cambiar el mail de contacto del sitio (hoy es el Gmail).
+2. Conectar Google Search Console y subir el sitemap. Hay un comentario en `layout.tsx` esperando el meta de verificación.
+3. Desactivar el auto-renew del dominio con typo.
 
 ### Bloqueado / señalado
 - 🚩 **Marca:** `socialvibe.agency` está registrado y **en uso por otra agencia de marketing digital**. No afecta al sitio (usamos otro dominio) pero es un tema de marca que hay que hablar con Jeniffer: dos agencias del mismo rubro con el mismo nombre.
@@ -76,6 +76,9 @@
 - El dominio y el flag de indexación salen los dos de `src/content/brand.ts` — de ahí se propagan a `layout.tsx`, `robots.ts` y `sitemap.ts`.
 
 **Gotchas**
+- ⚠️ **El edge de Cloudflare cachea el HTML y el robots.txt.** Después de un deploy, `curl` puede devolver la versión anterior con `CF-Cache-Status: HIT` y hacer creer que el despliegue falló. **Verificar siempre con un cache-buster** (`?cb=123`) antes de diagnosticar. Nos costó dos diagnósticos equivocados: primero "el deploy está viejo", después "el deploy command está mal" — las dos veces era caché.
+- ⚠️ En Workers Builds, **Deploy command** (`npx wrangler deploy`, pone la versión al 100%) y **Version command** (`npx wrangler versions upload`, la deja en 0%) son campos distintos. Ver el segundo no significa que el primero esté mal.
+- ⚠️ Los **Custom Domains de Workers exigen hostname exacto**: el Worker atado al apex NO responde a `www`. Resuelto con un `A` proxied de `www` a `192.0.2.0` (dirección de relleno; como está proxied nadie llega ahí) más una Redirect Rule 301 a la raíz.
 - ⚠️ **El panel de navegador no logra componer capturas de esta página después de scrollear** — devuelve pantallas en blanco o con el header corrido, local y en producción. No es un bug del sitio. Para verificar animaciones, **medir los transforms por JS** en vez de mirar capturas. Para fotografiar una sección, ocultar por JS las anteriores (`display:none`) para que quede arriba de todo.
 - ⚠️ Si la pestaña del panel está en segundo plano, `requestAnimationFrame` se pausa y **motion deja de actualizar**: los parallax se leen congelados aunque el scroll cambie. Traer la pestaña al frente antes de medir (`tabs_select`).
 - Next serializa los hreflang como `hrefLang`. Un `grep hreflang` sensible a mayúsculas no los encuentra — están igual.
@@ -94,6 +97,6 @@
 - *Who we are* ganó su gesto de patch y *Contact* pasó a verde con parallax de dos capas.
 - Primer deploy a producción, cerrado a buscadores. Verificado contra la URL real.
 - Se descubrió que `socialvibe.agency` está tomado por una agencia competidora.
-- Se compró `socialvibemediaagency.com`, se conectó al Worker y el sitio quedó abierto a buscadores.
+- Se compró `socialvibemediaagency.com`, se conectó al Worker, se resolvió el `www` con redirect 301 y el sitio quedó abierto a buscadores.
 - Se registró un dominio con un error de tipeo: `socialvibemediaagengy.com` ("agengy"). El correcto, `socialvibemediaagency.com`, sigue libre. Pendiente de resolver.
 - Bug corregido: el titular de la escena de la bandeja desaparecía para siempre al bajar y no volvía al subir.
