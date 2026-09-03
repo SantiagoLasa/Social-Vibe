@@ -5,7 +5,7 @@
 
 ## Status
 
-**Última actualización:** 2026-09-02 (3)
+**Última actualización:** 2026-09-02 (4)
 
 ### En curso
 - Nada en código.
@@ -18,7 +18,7 @@
 - [x] 2026-09-02 — Los reels se publican en el build; R2 descartado.
 
 ### Próximo
-1. Contratar la casilla de mail y cambiar el mail de contacto del sitio (hoy es el Gmail).
+1. Cambiar el destino de `info@` a Jeniffer cuando responda, y decidir si va casilla real (Workspace/Zoho) para poder responder desde la dirección.
 2. Conectar Google Search Console y subir el sitemap. Hay un comentario en `layout.tsx` esperando el meta de verificación.
 3. Desactivar el auto-renew del dominio con typo.
 
@@ -26,7 +26,9 @@
 - 🚩 **Marca:** `socialvibe.agency` está registrado y **en uso por otra agencia de marketing digital**. No afecta al sitio (usamos otro dominio) pero es un tema de marca que hay que hablar con Jeniffer: dos agencias del mismo rubro con el mismo nombre.
 - 🚩 **Dominio con typo comprado por error:** `socialvibemediaagengy.com` ("agengy"). No se usa. **Desactivarle el auto-renew** para que no lo cobren el año que viene — Cloudflare no reembolsa. Opcionalmente, redirigirlo al bueno.
 - 🚩 **Los portfolios viejos de Jeniffer siguen publicados con texto de plantilla de Canva sin reemplazar** ("An intriguing caption that describes the room goes here..."). Hay que avisarle.
-- El mail de contacto del sitio sigue siendo `jeniffersocially@gmail.com`. Cambia cuando exista la casilla del dominio.
+- ⚠️ **`info@socialvibemediaagency.com` reenvía hoy a `santi.lasa@icloud.com`**, no a Jeniffer. Es provisorio, hasta que ella responda. Se cambia en Cloudflare → Email Routing → Routing rules, **sin tocar código**.
+- ⚠️ **El dominio del typo `socialvibemediaagengy.com` todavía tiene Email Routing activo** (3 MX). Desactivarlo: es un canal fantasma que recibe mail que nadie mira.
+- El sitio sigue sin casilla para *enviar*: Email Routing solo recibe. Para responder desde `info@` hace falta Workspace o Zoho — y en ese caso hay que **desactivar Email Routing**, porque ambos manejan los MX y se pisan.
 
 ## Decisiones
 

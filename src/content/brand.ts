@@ -26,7 +26,10 @@ export const brand = {
   },
 
   contact: {
-    email: 'jeniffersocially@gmail.com',
+    // Casilla del dominio, servida por Cloudflare Email Routing. Hoy sólo
+    // recibe: reenvía a una casilla verificada. A dónde reenvía se cambia
+    // en el dashboard, sin tocar el código ni volver a publicar.
+    email: 'info@socialvibemediaagency.com',
     instagram: '@socialvibe.ma',
     /** WhatsApp de Jeniffer — confirmado 2026-08-27. Formato para mostrar. */
     whatsapp: '+1 (786) 442-4758',

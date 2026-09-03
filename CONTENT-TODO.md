@@ -102,4 +102,5 @@ mismo encuadre, que es lo que permite levantar la tapa.
 
 - [x] 2026-08-31 — Servicios: los ocho del PDF "CONTENT CREATION PACKAGE" (p.02), con sus descripciones. Decisión del cliente: **el sitio no muestra precios** — los tres paquetes (Starter / Signature / Full Experience) quedan para la conversación por WhatsApp.
 - [x] 2026-08-31 — Contactos definitivos, los del PDF de paquetes: jeniffersocially@gmail.com y @socialvibe.ma. Reemplazan a los de la tarjeta del brand kit.
+- [x] 2026-09-02 — El mail del sitio pasa a `info@socialvibemediaagency.com`, la casilla del dominio propio. Reemplaza al Gmail personal.
 - [x] 2026-08-31 — Noveno servicio agregado por el cliente: Website Design (no está en el PDF; su descripción es borrador nuestro).
