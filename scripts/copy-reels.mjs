@@ -12,12 +12,13 @@
 //
 // Uso: pnpm reels (se encadena automáticamente en pnpm build)
 
-import { copyFile, mkdir, open, readdir, stat } from 'node:fs/promises';
+import { copyFile, mkdir, open, readdir, readFile, rm, stat } from 'node:fs/promises';
 import path from 'node:path';
 
 const ROOT = path.resolve(import.meta.dirname, '..');
 const SRC_DIR = path.join(ROOT, 'assets-raw', '_source');
 const OUT_DIR = path.join(ROOT, 'public', 'media', 'reels');
+const CONTENT = path.join(ROOT, 'src', 'content', 'videos.ts');
 
 // Límite de Cloudflare Pages para un asset individual.
 const MAX_BYTES = 25 * 1024 * 1024;
@@ -89,8 +90,34 @@ async function main() {
     copied++;
   }
 
+  // Barrer lo que ya no está en la fuente. Sin esto, un reel eliminado
+  // sobrevive en public/ y se sigue publicando en cada deploy: peso muerto
+  // que además tapa el cambio.
+  let barridos = 0;
+  for (const stale of await readdir(OUT_DIR)) {
+    if (!names.includes(stale)) {
+      await rm(path.join(OUT_DIR, stale));
+      barridos++;
+    }
+  }
+
+  // La lista de src/content/videos.ts y la carpeta tienen que coincidir: un
+  // reel listado que no existe da 404, y uno que existe sin listar no se
+  // muestra. Las dos cosas fallan calladas, así que se avisan acá.
+  const declarados = new Set(
+    (await readFile(CONTENT, 'utf8')).match(/reel-\d+\.mp4/g) ?? [],
+  );
+  for (const name of names) {
+    if (!declarados.has(name)) warnings.push(`${name} está en la carpeta pero no en videos.ts: no se muestra.`);
+  }
+  for (const name of declarados) {
+    if (!names.includes(name)) warnings.push(`${name} está en videos.ts pero no en la carpeta: daría 404.`);
+  }
+
   console.log(
-    `Reels: ${names.length} archivos · ${copied} copiados · ${fresh} al día · ${mb(total)} en total.`,
+    `Reels: ${names.length} archivos · ${copied} copiados · ${fresh} al día` +
+      (barridos ? ` · ${barridos} barridos` : '') +
+      ` · ${mb(total)} en total.`,
   );
   for (const w of warnings) console.warn(`⚠ ${w}`);
 }

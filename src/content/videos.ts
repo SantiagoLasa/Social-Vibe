@@ -18,6 +18,10 @@ export type Reel = {
   seconds: number;
 };
 
+// La lista y la carpeta assets-raw/_source/ tienen que coincidir: un reel
+// listado que no existe da 404, y uno que existe sin listar no se muestra.
+// scripts/copy-reels.mjs avisa de las dos cosas en cada build.
+//
 // Convertidos desde los originales del iPhone: 720×1280, sin audio, ~2 Mbps.
 // TODO: CONTENIDO CLIENTE — las descripciones son nuestras, mirando cada
 // clip. Si Jeniffer sabe de qué local es cada uno, mejor nombrarlos.
@@ -27,6 +31,15 @@ export const reels: Reel[] = [
     file: 'reel-01.mp4',
     alt: 'Clip de contenido para una hamburguesería.',
     seconds: 8,
+  },
+  {
+    id: 'reel-02',
+    file: 'reel-02.mp4',
+    alt: 'Clip en una clínica veterinaria: personal en ambo atendiendo a un perro internado.',
+    // 41 s y 10,2 MB: el más largo y el más pesado de los cinco, más del
+    // doble que el que le sigue. Se había descartado por peso y volvió a
+    // pedido del cliente (02/09).
+    seconds: 41,
   },
   {
     id: 'reel-03',
@@ -39,12 +52,6 @@ export const reels: Reel[] = [
     file: 'reel-04.mp4',
     alt: 'Clip de contenido gastronómico.',
     seconds: 18,
-  },
-  {
-    id: 'reel-05',
-    file: 'reel-05.mp4',
-    alt: 'Clip de contenido gastronómico.',
-    seconds: 6,
   },
   {
     id: 'reel-06',

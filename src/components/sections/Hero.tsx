@@ -42,7 +42,7 @@ export function Hero({ copy }: { copy: Copy }) {
           {...rise(0)}
           /* display-l y no xl: el titular de Jeniffer son cuatro frases, y a
              tamaño xl ocuparía la pantalla entera. El patch es el héroe acá. */
-          className="mt-14 max-w-[20ch] font-display text-display-l text-bistre"
+          className="mt-14 max-w-[20ch] font-display text-display-xl text-bistre"
         >
           {copy.hero.headline}
         </motion.h1>

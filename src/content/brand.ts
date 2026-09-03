@@ -30,14 +30,14 @@ export const brand = {
     // recibe: reenvía a una casilla verificada. A dónde reenvía se cambia
     // en el dashboard, sin tocar el código ni volver a publicar.
     email: 'info@socialvibemediaagency.com',
-    instagram: '@socialvibe.ma',
+    instagram: '@socialvibemediaagency',
     /** WhatsApp de Jeniffer — confirmado 2026-08-27. Formato para mostrar. */
     whatsapp: '+1 (786) 442-4758',
   },
 
   social: {
     // TODO: CONTENIDO CLIENTE — URLs exactas
-    instagram: 'https://instagram.com/socialvibe.ma',
+    instagram: 'https://instagram.com/socialvibemediaagency',
     tiktok: null as string | null,
   },
 };

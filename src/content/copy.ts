@@ -11,10 +11,10 @@ import { services as serviceList } from './services';
 //     (tuteo), que es lo que pide el propio brand kit.
 //   · Testimonios vacíos a propósito: no se inventan.
 //
-// NOTA SOBRE EMOJIS: Jeniffer usa ✨ 👀 🩷 en su texto. Se conservan en
-// cuerpo y bajadas, pero NO en los titulares Bodoni: a 60px un emoji pelea
-// con la tipografía display y rompe el "credible before cute" del kit.
-// Si los quiere también ahí, es agregar el carácter y listo.
+// NOTA SOBRE EMOJIS: Jeniffer usa ✨ 👀 en su texto. Se conservan en cuerpo y
+// bajadas, pero NO en los titulares Bodoni: a 60px un emoji pelea con la
+// tipografía display y rompe el "credible before cute" del kit.
+// El 🩷 del cierre de "Who we are" lo sacó ella misma (02/09).
 
 export type Copy = {
   nav: { label: string; items: { id: string; label: string }[]; cta: string };
@@ -77,7 +77,7 @@ const en: Copy = {
   },
   hero: {
     // [JEN]
-    headline: 'Strategy. Content. Social media. With a sprinkle of creative chaos.',
+    headline: 'Strategy. Content. Social Media. With a sprinkle of your unique vibe.',
     sub: 'We dig into your brand, your audience, your goals, and the little things that make your business different.',
     scrollHint: 'Scroll',
   },
@@ -88,7 +88,7 @@ const en: Copy = {
     body: [
       'A Miami-based social media and content creation agency helping businesses show up online with strategy + creativity + personality — content that feels like your brand while helping you increase visibility, build credibility, create community, and turn attention into business.',
       'Our goal is to make creating content feel less overwhelming, and make showing up online feel a whole lot easier.',
-      'You run the business. We’ll make sure people know about it. 🩷',
+      'You run the business. We’ll make sure people know about it.',
     ],
   },
   services: {
@@ -121,8 +121,8 @@ const en: Copy = {
     leadIn: 'But we’d rather show you. 👀',
     viewLabel: 'View our work',
     resultsNote: 'Real numbers, straight from the accounts we run.',
-    clientsLabel: 'Kitchens we’ve worked with',
-    reelsLabel: 'Reels we made',
+    clientsLabel: 'Brands we’ve worked with',
+    reelsLabel: 'Content we’ve created',
   },
   contact: {
     // [JEN]
@@ -166,7 +166,7 @@ const es: Copy = {
     cta: 'Hablemos',
   },
   hero: {
-    headline: 'Estrategia. Contenido. Redes. Con una pizca de caos creativo.',
+    headline: 'Estrategia. Contenido. Redes. Con una pizca de tu vibe única.',
     sub: 'Nos metemos en tu marca, tu público, tus metas y en los detalles que hacen distinto a tu negocio.',
     scrollHint: 'Desliza',
   },
@@ -176,7 +176,7 @@ const es: Copy = {
     body: [
       'Agencia de redes y creación de contenido en Miami. Ayudamos a los negocios a mostrarse online con estrategia + creatividad + personalidad: contenido que se siente tuyo, que suma visibilidad, credibilidad y comunidad, y que convierte la atención en clientes.',
       'Queremos que crear contenido deje de abrumarte, y que estar online se sienta mucho más fácil.',
-      'Tú llevas el negocio. Nosotros nos encargamos de que se sepa. 🩷',
+      'Tú llevas el negocio. Nosotros nos encargamos de que se sepa.',
     ],
   },
   services: {
@@ -205,8 +205,8 @@ const es: Copy = {
     leadIn: 'Pero preferimos mostrártelo. 👀',
     viewLabel: 'Ver los trabajos',
     resultsNote: 'Números reales, sacados de las cuentas que manejamos.',
-    clientsLabel: 'Cocinas con las que trabajamos',
-    reelsLabel: 'Reels que hicimos',
+    clientsLabel: 'Marcas con las que trabajamos',
+    reelsLabel: 'Contenido que creamos',
   },
   contact: {
     label: '¿Listos para encontrar tu vibe?',
