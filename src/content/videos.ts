@@ -36,10 +36,7 @@ export const reels: Reel[] = [
     id: 'reel-02',
     file: 'reel-02.mp4',
     alt: 'Clip en una clínica veterinaria: personal en ambo atendiendo a un perro internado.',
-    // 41 s y 10,2 MB: el más largo y el más pesado de los cinco, más del
-    // doble que el que le sigue. Se había descartado por peso y volvió a
-    // pedido del cliente (02/09).
-    seconds: 41,
+    seconds: 18,
   },
   {
     id: 'reel-03',
