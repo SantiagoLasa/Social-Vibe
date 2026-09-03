@@ -5,12 +5,13 @@
 
 ## Status
 
-**Última actualización:** 2026-09-02 (6)
+**Última actualización:** 2026-09-03
 
 ### En curso
 - Nada en código.
 
 ### Hecho hace poco
+- [x] 2026-09-03 — **Primera revisión de Jeniffer aplicada entera** (ver Decisiones).
 - [x] 2026-09-02 — Contacto rediseñado como ticket de la cuenta, verificado en producción.
 - [x] 2026-09-02 — **Sitio en vivo y abierto a buscadores en `https://socialvibemediaagency.com`**, con `www` redirigiendo 301 al apex.
 - [x] 2026-09-02 — Sitio publicado en Workers Static Assets (preview: `social-vibe.santi-lasa99.workers.dev`).
@@ -55,6 +56,24 @@
 **Decisión:** el titular se cierra pasado el progreso 0.42 y se vuelve a abrir por debajo de 0.18.
 **Por qué:** cerrarlo para siempre (versión anterior) dejaba la escena decapitada: quien subía a releer encontraba media pantalla de rayas vacías. Abrirlo sin histéresis devolvía el bug original —el titular reapareciendo a media opacidad sobre las capturas—. Por debajo de 0.18 no hay ninguna captura a la vista (la primera empieza en 0.30), así que ahí puede volver sin pelear con nada.
 
+### 2026-09-03 — Primera revisión de Jeniffer
+Ocho pedidos, todos aplicados en los dos idiomas:
+
+| Pedido | Qué se hizo |
+|---|---|
+| "Reels we made" | → "Content we've created" |
+| "Kitchens we've worked with" | → "Brands we've worked with" |
+| Titular del hero | → "Strategy. Content. Social Media. With a sprinkle of your unique vibe." |
+| "Un font más bold que resalte" | `display-l` → `display-xl` |
+| Sacar el corazón 🩷 | Fuera del cierre de *Who we are* |
+| Instagram | `@socialvibe.ma` → `@socialvibemediaagency` |
+| Fotos | `photo-05`, `photo-10`, `photo-11` reemplazadas |
+| Reel | Entra `reel-02` (veterinaria), sale `reel-05` |
+
+**Las dos etiquetas no eran capricho:** "Reels" y "Kitchens" encajonaban el trabajo en gastronomía, y el portfolio ya no es solo eso — las fotos nuevas traen un corgi y una clínica de estética, y el reel nuevo es una veterinaria. El sitio se está abriendo de rubro.
+
+**Sobre "más bold":** no se podía por peso. `text-display-l` ya usaba 900, que es la Bodoni Black, y el proyecto no carga un cut más grueso. Lo que se subió fue el tamaño, a `display-xl` (6rem contra 4rem), que ya existía en la escala del brand kit. Si algún día lo quieren aún más contundente, hay que sumar otro archivo de fuente.
+
 ### 2026-09-02 — Contacto es un ticket, no una tarjeta
 **Decisión:** la sección de contacto pasa a ser la cuenta que llega al final de la comida: papel angosto con bordes troquelados, todo en Courier, los datos como renglones y el CTA en el lugar del total.
 **Por qué:** la tarjeta celeste era la única parte del sitio que no participaba de la historia gastronómica (rayas, bandeja, comanda) y por eso se leía neutra. El ticket cierra el arco que abre la bandeja. De paso arregla el desborde del mail: cuatro columnas en 720px daban 140px cada una y una dirección de mail no entra ahí.
@@ -82,13 +101,16 @@
 - `pnpm dev` — servidor local en :3000. **No genera `public/media/`**: si está vacío, correr `pnpm build` (o `pnpm images` + `pnpm reels`) al menos una vez.
 - `pnpm build` — imágenes → reels → OG → next build → fix-lang.
 - `npx wrangler deploy --dry-run` — valida `wrangler.jsonc` sin publicar ni pedir auth.
+- `node scripts/faststart.mjs <archivo.mp4>` — mueve el `moov` al principio. Hace falta en todo reel que llegue del cliente sin "Web Optimized".
 
 **Dónde vive qué**
 - Fuentes pesadas en `assets-raw/` (versionadas, ~116 MB). `public/media/` se **genera** y está en `.gitignore`.
-- Los 5 MP4 viven en `assets-raw/_source/` y `scripts/copy-reels.mjs` los copia en cada build.
+- Los 5 MP4 viven en `assets-raw/_source/` y `scripts/copy-reels.mjs` los copia en cada build. Desde el 03/09 el script además **avisa si la lista de `videos.ts` y la carpeta no coinciden** (listado sin archivo = 404; archivo sin listar = no se muestra) y **barre de `public/` los reels que ya no están en la fuente**, que antes sobrevivían y se publicaban para siempre.
 - El dominio y el flag de indexación salen los dos de `src/content/brand.ts` — de ahí se propagan a `layout.tsx`, `robots.ts` y `sitemap.ts`.
 
 **Gotchas**
+- ⚠️ **Al reemplazar una foto, revisar su `alt` en `src/content/gallery.ts`.** Los archivos se llaman `photo-NN.jpg` y el `alt` describe una imagen concreta: si cambia el archivo y no el texto, el `alt` miente y nadie lo nota. Pasó con las tres fotos del 03/09 —decía "extensiones de pestañas" sobre un corgi—. El campo `sector` también hay que revisarlo (es metadata, no se renderiza).
+- ⚠️ **HandBrake no aplica faststart salvo que se marque "Web Optimized".** Los dos reels que llegaron del cliente vinieron con el `moov` al final. `scripts/copy-reels.mjs` lo detecta y avisa; el arreglo es `node scripts/faststart.mjs <archivo>`.
 - ⚠️ **El edge de Cloudflare cachea el HTML y el robots.txt.** Después de un deploy, `curl` puede devolver la versión anterior con `CF-Cache-Status: HIT` y hacer creer que el despliegue falló. **Verificar siempre con un cache-buster** (`?cb=123`) antes de diagnosticar. Nos costó dos diagnósticos equivocados: primero "el deploy está viejo", después "el deploy command está mal" — las dos veces era caché.
 - ⚠️ En Workers Builds, **Deploy command** (`npx wrangler deploy`, pone la versión al 100%) y **Version command** (`npx wrangler versions upload`, la deja en 0%) son campos distintos. Ver el segundo no significa que el primero esté mal.
 - ⚠️ Los **Custom Domains de Workers exigen hostname exacto**: el Worker atado al apex NO responde a `www`. Resuelto con un `A` proxied de `www` a `192.0.2.0` (dirección de relleno; como está proxied nadie llega ahí) más una Redirect Rule 301 a la raíz.
@@ -107,6 +129,11 @@
 - El patch va inclinado −1.6° exacto, sin sombras ni gradientes (brand kit p.6).
 
 ## Session Log
+
+### 2026-09-03
+- Se aplicó entera la primera revisión de Jeniffer: ocho cambios de texto, marca, fotos y reels.
+- Los `alt` de tres fotos describían imágenes que ya no estaban; reescritos mirando cada una.
+- El reel nuevo llegó primero en 41 s / 10,2 MB y el cliente lo recortó a 18 s / 4,3 MB. Los cinco reels pasaron de 22 MB a 16 MB.
 
 ### 2026-09-02
 - Los reels salieron de R2 y pasaron a publicarse en el build; se evitó activar R2 y dejar una tarjeta cargada.
