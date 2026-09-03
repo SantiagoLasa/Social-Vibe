@@ -79,12 +79,21 @@ export function Contact({ copy }: { copy: Copy }) {
           className="mt-14 w-full max-w-[430px]"
           style={reduce ? undefined : { y: ticketY }}
         >
-          <div className="overflow-hidden">
+          {/* El que observa el viewport es la ranura, no el ticket.
+              El ticket arranca en -101% y recortado, así que su intersección
+              es cero: si el observador estuviera puesto en él, nunca se
+              cumpliría la condición, la animación no arrancaría y el ticket
+              se quedaría escondido para siempre. La ranura, en cambio,
+              siempre ocupa su lugar en el layout. */}
+          <motion.div
+            className="overflow-hidden"
+            initial={reduce ? undefined : 'oculto'}
+            whileInView={reduce ? undefined : 'impreso'}
+            viewport={{ once: true, amount: 0.4 }}
+          >
             <motion.div
               className="receipt bg-paper px-6 py-8 font-mono text-[11.5px] leading-relaxed text-bistre sm:px-8 sm:text-[12.5px]"
-              initial={reduce ? undefined : { y: '-101%' }}
-              whileInView={reduce ? undefined : { y: '0%' }}
-              viewport={{ once: true, amount: 0.3 }}
+              variants={{ oculto: { y: '-101%' }, impreso: { y: '0%' } }}
               transition={{ duration: 0.9, ease: EASE }}
             >
               <p className="text-center text-utility uppercase tracking-[0.2em] text-bistre">
@@ -157,7 +166,7 @@ export function Contact({ copy }: { copy: Copy }) {
                 {copy.contact.thanks}
               </p>
             </motion.div>
-          </div>
+          </motion.div>
         </motion.div>
       </Container>
     </section>
