@@ -5,12 +5,13 @@
 
 ## Status
 
-**Última actualización:** 2026-09-02 (5)
+**Última actualización:** 2026-09-02 (6)
 
 ### En curso
 - Nada en código.
 
 ### Hecho hace poco
+- [x] 2026-09-02 — Contacto rediseñado como ticket de la cuenta, verificado en producción.
 - [x] 2026-09-02 — **Sitio en vivo y abierto a buscadores en `https://socialvibemediaagency.com`**, con `www` redirigiendo 301 al apex.
 - [x] 2026-09-02 — Sitio publicado en Workers Static Assets (preview: `social-vibe.santi-lasa99.workers.dev`).
 - [x] 2026-09-02 — Testimonios eliminados; el sitio pasa a cuatro segmentos.
@@ -59,6 +60,11 @@
 **Por qué:** la tarjeta celeste era la única parte del sitio que no participaba de la historia gastronómica (rayas, bandeja, comanda) y por eso se leía neutra. El ticket cierra el arco que abre la bandeja. De paso arregla el desborde del mail: cuatro columnas en 720px daban 140px cada una y una dirección de mail no entra ahí.
 **Detalle que no es obvio:** el argumento (Bodoni) queda **fuera** del ticket, sobre el verde; el ticket es solo mono. Un ticket no tiene tipografía display, y mezclarlas era parte del problema.
 
+### 2026-09-02 — El disparador de una animación va sobre el contenedor, no sobre lo que se esconde
+**Decisión:** en el ticket de contacto, el `whileInView` está en la ranura (`overflow: hidden`) y el ticket anima por variantes heredadas.
+**Por qué:** con el disparador sobre el ticket, que arranca en `y:-101%` y recortado, la intersección es cero y la animación nunca arranca. Se subió roto una vez por esto.
+**Regla general:** si un elemento empieza fuera de vista por transform dentro de un recorte, el observador nunca puede ir sobre él.
+
 ### 2026-09-02 — Se publica con noindex hasta que exista el dominio
 **Decisión:** `brand.indexable = false` mientras tanto, con `brand.url` apuntando a la URL real de Workers.
 **Por qué:** un canonical que declara un dominio inexistente es peor que no publicar. El doble candado (robots.txt `Disallow: /` + meta `noindex, nofollow`) hace falta completo: el robots.txt solo no impide que se indexe una URL a la que se llega por un enlace directo.
@@ -88,6 +94,8 @@
 - ⚠️ Los **Custom Domains de Workers exigen hostname exacto**: el Worker atado al apex NO responde a `www`. Resuelto con un `A` proxied de `www` a `192.0.2.0` (dirección de relleno; como está proxied nadie llega ahí) más una Redirect Rule 301 a la raíz.
 - ⚠️ **El panel de navegador no logra componer capturas de esta página después de scrollear** — devuelve pantallas en blanco o con el header corrido, local y en producción. No es un bug del sitio. Para verificar animaciones, **medir los transforms por JS** en vez de mirar capturas. Para fotografiar una sección, ocultar por JS las anteriores (`display:none`) para que quede arriba de todo.
 - ⚠️ Si la pestaña del panel está en segundo plano, `requestAnimationFrame` se pausa y **motion deja de actualizar**: los parallax se leen congelados aunque el scroll cambie. Traer la pestaña al frente antes de medir (`tabs_select`).
+- ⚠️⚠️ **Nunca verificar una animación forzando su estado final por JS.** Para poder fotografiar el ticket de contacto se le puso `transform: none` a mano, y eso saltea el disparador: se vio el diseño correcto mientras el gesto estaba roto, y se subió así. **Una animación se verifica con el scroll real del panel** (`computer scroll`) y midiendo el `transform` resultante, sin tocar nada. Forzar estados sirve solo para juzgar composición y color, nunca comportamiento.
+- ⚠️ **`whileInView` sobre un elemento que arranca fuera de su recorte es un bloqueo mutuo.** Si el elemento empieza trasladado fuera de un contenedor con `overflow: hidden`, su intersección es cero, el observador nunca se cumple y la animación nunca arranca: queda escondido para siempre. El disparador va sobre el **contenedor**, que siempre ocupa su lugar en el layout, y el hijo anima por variantes heredadas. Ver `Contact.tsx`.
 - Next serializa los hreflang como `hrefLang`. Un `grep hreflang` sensible a mayúsculas no los encuentra — están igual.
 - `scripts/faststart.mjs` mueve el átomo `moov` al principio de un MP4. Los originales del iPhone dan `moov@-1 mdat@32`; los convertidos, `moov@36 mdat@3567`. `copy-reels.mjs` valida esto y avisa.
 
@@ -107,5 +115,7 @@
 - Primer deploy a producción, cerrado a buscadores. Verificado contra la URL real.
 - Se descubrió que `socialvibe.agency` está tomado por una agencia competidora.
 - Se compró `socialvibemediaagency.com`, se conectó al Worker, se resolvió el `www` con redirect 301 y el sitio quedó abierto a buscadores.
+- Email Routing quedó armado en el dominio correcto (`info@` y `help@`); el mail del sitio pasó a `info@`.
+- La sección de contacto se rediseñó como el ticket de la cuenta. Se subió rota una vez por verificar la animación forzando su estado final; anotado en los gotchas.
 - Se registró un dominio con un error de tipeo: `socialvibemediaagengy.com` ("agengy"). El correcto, `socialvibemediaagency.com`, sigue libre. Pendiente de resolver.
 - Bug corregido: el titular de la escena de la bandeja desaparecía para siempre al bajar y no volvía al subir.
