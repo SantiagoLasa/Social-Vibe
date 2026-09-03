@@ -49,6 +49,10 @@
 **Decisión:** la carpeta (tarjeta + solapa) es una capa y el CTA es la otra, a ~2.1× de velocidad.
 **Por qué:** el plan original era mover la solapa y la tarjeta a distinta velocidad, pero la solapa está pegada a la carpeta: despegarlas rompe el objeto en vez de dar profundidad.
 
+### 2026-09-02 — El pestillo del titular de la bandeja lleva histéresis
+**Decisión:** el titular se cierra pasado el progreso 0.42 y se vuelve a abrir por debajo de 0.18.
+**Por qué:** cerrarlo para siempre (versión anterior) dejaba la escena decapitada: quien subía a releer encontraba media pantalla de rayas vacías. Abrirlo sin histéresis devolvía el bug original —el titular reapareciendo a media opacidad sobre las capturas—. Por debajo de 0.18 no hay ninguna captura a la vista (la primera empieza en 0.30), así que ahí puede volver sin pelear con nada.
+
 ### 2026-09-02 — Se publica con noindex hasta que exista el dominio
 **Decisión:** `brand.indexable = false` mientras tanto, con `brand.url` apuntando a la URL real de Workers.
 **Por qué:** un canonical que declara un dominio inexistente es peor que no publicar. El doble candado (robots.txt `Disallow: /` + meta `noindex, nofollow`) hace falta completo: el robots.txt solo no impide que se indexe una URL a la que se llega por un enlace directo.
@@ -89,4 +93,6 @@
 - Se eliminaron los testimonios tras verificar que no existen en ningún portfolio; el sitio quedó en cuatro segmentos.
 - *Who we are* ganó su gesto de patch y *Contact* pasó a verde con parallax de dos capas.
 - Primer deploy a producción, cerrado a buscadores. Verificado contra la URL real.
-- Se descubrió que `socialvibe.agency` está tomado por una agencia competidora. Queda esperando que Santiago compre un dominio alternativo.
+- Se descubrió que `socialvibe.agency` está tomado por una agencia competidora.
+- Se registró un dominio con un error de tipeo: `socialvibemediaagengy.com` ("agengy"). El correcto, `socialvibemediaagency.com`, sigue libre. Pendiente de resolver.
+- Bug corregido: el titular de la escena de la bandeja desaparecía para siempre al bajar y no volvía al subir.

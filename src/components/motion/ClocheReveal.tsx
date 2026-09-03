@@ -226,13 +226,21 @@ export function ClocheReveal({ copy }: { copy: Copy }) {
 }
 
 function Headline({ progress, copy }: { progress: MotionValue<number>; copy: Copy }) {
-  // Una vez que el titular se fue, se queda ido. Sin este pestillo el
-  // movimiento sería reversible como todo lo atado al scroll, y bastaba
-  // subir un poco —o un rebote del scroll— para verlo reaparecer encima de
-  // las capturas, que es justo lo que arruinaba la lectura.
+  // El pestillo existe porque el movimiento está atado al scroll y por lo
+  // tanto es reversible: sin él, bastaba subir un poco —o un rebote del
+  // scroll— para ver el titular reaparecer a media opacidad encima de las
+  // capturas ya sólidas, que es justo lo que arruinaba la lectura.
+  //
+  // Pero cerrarlo para siempre dejaba la escena decapitada: quien subía a
+  // releer se encontraba media pantalla de rayas vacías donde había estado
+  // el titular. Así que el pestillo tiene histéresis: se cierra pasado 0.42
+  // y solo se vuelve a abrir por debajo de 0.18, donde todavía no hay
+  // ninguna captura a la vista (la primera recién empieza en 0.30). Entre
+  // esos dos valores no pasa nada, que es lo que evita el parpadeo.
   const [ido, setIdo] = useState(false);
   useMotionValueEvent(progress, 'change', (v) => {
     if (v > 0.42 && !ido) setIdo(true);
+    else if (v < 0.18 && ido) setIdo(false);
   });
 
   // Ya puesto al fijarse la sección, sin rampa de entrada. Se aparta antes
