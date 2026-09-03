@@ -5,29 +5,28 @@
 
 ## Status
 
-**Última actualización:** 2026-09-02
+**Última actualización:** 2026-09-02 (2)
 
 ### En curso
-- Nada en código. El proyecto está esperando una acción externa.
+- Nada en código.
 
 ### Hecho hace poco
-- [x] 2026-09-02 — Sitio publicado en `https://social-vibe.santi-lasa99.workers.dev` (Workers Static Assets), cerrado a buscadores.
+- [x] 2026-09-02 — **Sitio en vivo y abierto a buscadores en `https://socialvibemediaagency.com`.**
+- [x] 2026-09-02 — Sitio publicado en Workers Static Assets (preview: `social-vibe.santi-lasa99.workers.dev`).
 - [x] 2026-09-02 — Testimonios eliminados; el sitio pasa a cuatro segmentos.
 - [x] 2026-09-02 — *Who we are* gana su gesto de patch; *Contact* pasa a verde con parallax.
 - [x] 2026-09-02 — Los reels se publican en el build; R2 descartado.
 
 ### Próximo
-1. Comprar el dominio (Santiago) y avisar cuál quedó.
-2. Conectarlo al Worker en Settings → Domains.
-3. Contratar el mail y crear la casilla.
-4. Abrir el sitio a buscadores: `indexable: true` + `url` real en `src/content/brand.ts`, y cambiar el mail de contacto.
+1. **El `www` no resuelve.** Los Custom Domains de Workers exigen hostname exacto: el Worker atado al apex no responde a `www.`. Hace falta un registro `A` **proxied** de `www` a `192.0.2.0` más una Redirect Rule a la raíz.
+2. Contratar la casilla de mail y cambiar el mail de contacto del sitio (hoy es el Gmail).
+3. Conectar Google Search Console y subir el sitemap.
 
 ### Bloqueado / señalado
-- 🚩 **El dominio.** `socialvibe.agency` —el que el brand kit asumía— **está registrado y en uso por otra agencia de marketing digital** (responde 200, título "Your Full Service Digital Marketing Agency"). No es un dominio parkeado. Además de la URL, abre un tema de marca que hay que hablar con Jeniffer: dos agencias del mismo rubro con el mismo nombre.
-  - Libres al 02/09: `socialvibema.com` (recomendado, calca el handle `@socialvibe.ma`), `socialvibemiami.com`, `socialvibecreative.com`, `hellosocialvibe.com`, `socialvibemedia.co`, `socialvibe.us`.
-  - Ocupados: `socialvibe.com`, `.co`, `.media`, `.studio`, `socialvibemedia.com`, `socialvibeagency.com`.
+- 🚩 **Marca:** `socialvibe.agency` está registrado y **en uso por otra agencia de marketing digital**. No afecta al sitio (usamos otro dominio) pero es un tema de marca que hay que hablar con Jeniffer: dos agencias del mismo rubro con el mismo nombre.
+- 🚩 **Dominio con typo comprado por error:** `socialvibemediaagengy.com` ("agengy"). No se usa. **Desactivarle el auto-renew** para que no lo cobren el año que viene — Cloudflare no reembolsa. Opcionalmente, redirigirlo al bueno.
 - 🚩 **Los portfolios viejos de Jeniffer siguen publicados con texto de plantilla de Canva sin reemplazar** ("An intriguing caption that describes the room goes here..."). Hay que avisarle.
-- El mail de contacto del sitio es `jeniffersocially@gmail.com`. Cambia cuando exista la casilla del dominio.
+- El mail de contacto del sitio sigue siendo `jeniffersocially@gmail.com`. Cambia cuando exista la casilla del dominio.
 
 ## Decisiones
 
@@ -56,6 +55,7 @@
 ### 2026-09-02 — Se publica con noindex hasta que exista el dominio
 **Decisión:** `brand.indexable = false` mientras tanto, con `brand.url` apuntando a la URL real de Workers.
 **Por qué:** un canonical que declara un dominio inexistente es peor que no publicar. El doble candado (robots.txt `Disallow: /` + meta `noindex, nofollow`) hace falta completo: el robots.txt solo no impide que se indexe una URL a la que se llega por un enlace directo.
+**Superada el 2026-09-02:** con `socialvibemediaagency.com` conectado y sirviendo el sitio, se pasó a `indexable: true`. El mecanismo queda por si hace falta volver a cerrarlo.
 
 ## Knowledge
 
@@ -94,5 +94,6 @@
 - *Who we are* ganó su gesto de patch y *Contact* pasó a verde con parallax de dos capas.
 - Primer deploy a producción, cerrado a buscadores. Verificado contra la URL real.
 - Se descubrió que `socialvibe.agency` está tomado por una agencia competidora.
+- Se compró `socialvibemediaagency.com`, se conectó al Worker y el sitio quedó abierto a buscadores.
 - Se registró un dominio con un error de tipeo: `socialvibemediaagengy.com` ("agengy"). El correcto, `socialvibemediaagency.com`, sigue libre. Pendiente de resolver.
 - Bug corregido: el titular de la escena de la bandeja desaparecía para siempre al bajar y no volvía al subir.
